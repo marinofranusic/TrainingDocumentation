@@ -1,0 +1,138 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TrainingDocumentation.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="COURSE_TITLE_STRING" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Course title</Value>
+    </Setting>
+    <Setting Name="SUBJECT_DIVIDERS" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Subject / Sub topic&lt;/string&gt;
+  &lt;string&gt;Lesson / Topic&lt;/string&gt;
+  &lt;string&gt;Lesson / Topic / Sub-Topic&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="SUBJECT_TOPIC_NAMING" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Subject&lt;/string&gt;
+  &lt;string&gt;Lesson&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="PART_DIVIDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Part</Value>
+    </Setting>
+    <Setting Name="TITLE_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Front page 1</Value>
+    </Setting>
+    <Setting Name="TITLE_SLIDE_MAIN_TITLE_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">equipment</Value>
+    </Setting>
+    <Setting Name="TITLE_SLIDE_SUBTITLE_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">lesson name</Value>
+    </Setting>
+    <Setting Name="DEFAULT_NOTES_TEXT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">**Instructor notes should go in between these asterisks**</Value>
+    </Setting>
+    <Setting Name="DEFAULT_TITLE_SLIDE_NOTES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Welcome!</Value>
+    </Setting>
+    <Setting Name="DEFAULT_NOTES_ENDING" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Notes:</Value>
+    </Setting>
+    <Setting Name="HEADING1_MARKUP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*h1*</Value>
+    </Setting>
+    <Setting Name="HEADING2_MARKUP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*h2*</Value>
+    </Setting>
+    <Setting Name="HEADING3_MARKUP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*h3*</Value>
+    </Setting>
+    <Setting Name="DEFAULT_TITLE_SLIDE_SUBTITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">- RIG NAME -</Value>
+    </Setting>
+    <Setting Name="INTRODUCTION_SUBJECT_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Introduction</Value>
+    </Setting>
+    <Setting Name="INTRODUCTION_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Introduction</Value>
+    </Setting>
+    <Setting Name="LESSON_GOAL_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lesson goal</Value>
+    </Setting>
+    <Setting Name="LESSON_GOAL_OBTAINED_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Then you have obtained</Value>
+    </Setting>
+    <Setting Name="LESSON_GOAL_SLIDE_CONTAINER_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">add lesson goal</Value>
+    </Setting>
+    <Setting Name="LESSON_GOAL_SLIDE_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lesson goal</Value>
+    </Setting>
+    <Setting Name="LESSON_GOAL_OBTAINED_SLIDE_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Review of lesson goal</Value>
+    </Setting>
+    <Setting Name="LESSON_OBJECTIVES_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lesson objectives</Value>
+    </Setting>
+    <Setting Name="LESSON_OBJECTIVES_REVIEW_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">By now, you are able to</Value>
+    </Setting>
+    <Setting Name="LESSON_OBJECTIVES_SLIDE_CONTAINER_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">add lesson objectives</Value>
+    </Setting>
+    <Setting Name="LESSON_OBJECTIVES_SLIDE_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Lesson objectives</Value>
+    </Setting>
+    <Setting Name="LESSON_OBJECTIVES_REVIEW_SLIDE_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Review of lesson objectives</Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic divider</Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_SLIDE_CONTAINER_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">add topic title</Value>
+    </Setting>
+    <Setting Name="INSTRUCTOR_NOTES_MARKUP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">**</Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_OBJECTIVE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic objective: </Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_METHODS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic methods and/or activities: </Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_EVALUATION" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic evaluation: </Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_TIME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic time: </Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_MATERIALS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic materials: </Value>
+    </Setting>
+    <Setting Name="TOPIC_DIVIDER_TOPIC_NOTES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Topic notes: </Value>
+    </Setting>
+    <Setting Name="CONTENT_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">REGULAR SLIDE</Value>
+    </Setting>
+    <Setting Name="CONTENT_SLIDE_TITLE_CONTAINER_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">title style</Value>
+    </Setting>
+    <Setting Name="CONTENT_SLIDE_CONTENT_CONTAINER_KEYWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">text styles</Value>
+    </Setting>
+    <Setting Name="CONTENT_SLIDE_DEFAULT_CONTENT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TO DO: add content...</Value>
+    </Setting>
+    <Setting Name="QUESTIONS_SLIDE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Question slide</Value>
+    </Setting>
+    <Setting Name="QUESTIONS_SLIDE_TITLE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Questions?</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
