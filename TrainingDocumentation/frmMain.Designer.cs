@@ -31,31 +31,33 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tabContainer = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.btnHandbookBrowseOpen = new System.Windows.Forms.Button();
-            this.txtHandbookFile = new System.Windows.Forms.TextBox();
-            this.lblHandbookFileTitle = new System.Windows.Forms.Label();
-            this.lblHandbookStatus = new System.Windows.Forms.Label();
-            this.progressBarHandbook = new System.Windows.Forms.ProgressBar();
-            this.chkHandbookDeletePictures = new System.Windows.Forms.CheckBox();
-            this.txtHandbookSaveLocation = new System.Windows.Forms.TextBox();
-            this.btnHandbookBrowseSave = new System.Windows.Forms.Button();
-            this.chkHandbookOverrideDefaultSave = new System.Windows.Forms.CheckBox();
-            this.bckgHandbook = new System.ComponentModel.BackgroundWorker();
-            this.btnHandbookConvert = new System.Windows.Forms.Button();
-            this.btnLPConvert = new System.Windows.Forms.Button();
-            this.progressBarLP = new System.Windows.Forms.ProgressBar();
-            this.lblLPStatus = new System.Windows.Forms.Label();
-            this.bckgLP = new System.ComponentModel.BackgroundWorker();
+            this.chkLPDeleteXML = new System.Windows.Forms.CheckBox();
             this.chkLPOverrideDefaultSave = new System.Windows.Forms.CheckBox();
             this.btnLPBrowseSave = new System.Windows.Forms.Button();
             this.txtLPSaveLocation = new System.Windows.Forms.TextBox();
             this.lblLPFileTitle = new System.Windows.Forms.Label();
             this.btnLPBrowseOpen = new System.Windows.Forms.Button();
             this.txtLPFile = new System.Windows.Forms.TextBox();
+            this.progressBarLP = new System.Windows.Forms.ProgressBar();
+            this.lblLPStatus = new System.Windows.Forms.Label();
+            this.btnLPConvert = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnHandbookConvert = new System.Windows.Forms.Button();
+            this.chkHandbookOverrideDefaultSave = new System.Windows.Forms.CheckBox();
+            this.btnHandbookBrowseSave = new System.Windows.Forms.Button();
+            this.txtHandbookSaveLocation = new System.Windows.Forms.TextBox();
+            this.chkHandbookDeletePictures = new System.Windows.Forms.CheckBox();
+            this.progressBarHandbook = new System.Windows.Forms.ProgressBar();
+            this.lblHandbookStatus = new System.Windows.Forms.Label();
+            this.lblHandbookFileTitle = new System.Windows.Forms.Label();
+            this.btnHandbookBrowseOpen = new System.Windows.Forms.Button();
+            this.txtHandbookFile = new System.Windows.Forms.TextBox();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.bckgHandbook = new System.ComponentModel.BackgroundWorker();
+            this.bckgLP = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.chkLPDeleteXML = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chkHandbookInstructorGuide = new System.Windows.Forms.CheckBox();
             this.tabContainer.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -92,164 +94,16 @@
             this.tabPage1.Text = "Presentation template creator";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // chkLPDeleteXML
             // 
-            this.tabPage2.Controls.Add(this.btnHandbookConvert);
-            this.tabPage2.Controls.Add(this.chkHandbookOverrideDefaultSave);
-            this.tabPage2.Controls.Add(this.btnHandbookBrowseSave);
-            this.tabPage2.Controls.Add(this.txtHandbookSaveLocation);
-            this.tabPage2.Controls.Add(this.chkHandbookDeletePictures);
-            this.tabPage2.Controls.Add(this.progressBarHandbook);
-            this.tabPage2.Controls.Add(this.lblHandbookStatus);
-            this.tabPage2.Controls.Add(this.lblHandbookFileTitle);
-            this.tabPage2.Controls.Add(this.btnHandbookBrowseOpen);
-            this.tabPage2.Controls.Add(this.txtHandbookFile);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(581, 340);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Handbook creator";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(513, 486);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 35);
-            this.btnExit.TabIndex = 2;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnHandbookBrowseOpen
-            // 
-            this.btnHandbookBrowseOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHandbookBrowseOpen.Location = new System.Drawing.Point(472, 42);
-            this.btnHandbookBrowseOpen.Name = "btnHandbookBrowseOpen";
-            this.btnHandbookBrowseOpen.Size = new System.Drawing.Size(100, 35);
-            this.btnHandbookBrowseOpen.TabIndex = 3;
-            this.btnHandbookBrowseOpen.Text = "Browse";
-            this.btnHandbookBrowseOpen.UseVisualStyleBackColor = true;
-            this.btnHandbookBrowseOpen.Click += new System.EventHandler(this.btnHandbookBrowseOpen_Click);
-            // 
-            // txtHandbookFile
-            // 
-            this.txtHandbookFile.Enabled = false;
-            this.txtHandbookFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHandbookFile.Location = new System.Drawing.Point(19, 48);
-            this.txtHandbookFile.Name = "txtHandbookFile";
-            this.txtHandbookFile.Size = new System.Drawing.Size(428, 23);
-            this.txtHandbookFile.TabIndex = 2;
-            // 
-            // lblHandbookFileTitle
-            // 
-            this.lblHandbookFileTitle.AutoSize = true;
-            this.lblHandbookFileTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHandbookFileTitle.Location = new System.Drawing.Point(16, 16);
-            this.lblHandbookFileTitle.Name = "lblHandbookFileTitle";
-            this.lblHandbookFileTitle.Size = new System.Drawing.Size(282, 20);
-            this.lblHandbookFileTitle.TabIndex = 4;
-            this.lblHandbookFileTitle.Text = "Presentation to convert to handbook:";
-            // 
-            // lblHandbookStatus
-            // 
-            this.lblHandbookStatus.AutoSize = true;
-            this.lblHandbookStatus.Location = new System.Drawing.Point(257, 294);
-            this.lblHandbookStatus.Name = "lblHandbookStatus";
-            this.lblHandbookStatus.Size = new System.Drawing.Size(53, 17);
-            this.lblHandbookStatus.TabIndex = 5;
-            this.lblHandbookStatus.Text = "Ready.";
-            // 
-            // progressBarHandbook
-            // 
-            this.progressBarHandbook.Location = new System.Drawing.Point(20, 314);
-            this.progressBarHandbook.Name = "progressBarHandbook";
-            this.progressBarHandbook.Size = new System.Drawing.Size(527, 23);
-            this.progressBarHandbook.TabIndex = 6;
-            // 
-            // chkHandbookDeletePictures
-            // 
-            this.chkHandbookDeletePictures.AutoSize = true;
-            this.chkHandbookDeletePictures.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHandbookDeletePictures.Location = new System.Drawing.Point(20, 180);
-            this.chkHandbookDeletePictures.Name = "chkHandbookDeletePictures";
-            this.chkHandbookDeletePictures.Size = new System.Drawing.Size(338, 24);
-            this.chkHandbookDeletePictures.TabIndex = 7;
-            this.chkHandbookDeletePictures.Text = "Delete slide pictures folder after finishing";
-            this.chkHandbookDeletePictures.UseVisualStyleBackColor = true;
-            // 
-            // txtHandbookSaveLocation
-            // 
-            this.txtHandbookSaveLocation.Enabled = false;
-            this.txtHandbookSaveLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHandbookSaveLocation.Location = new System.Drawing.Point(20, 111);
-            this.txtHandbookSaveLocation.Name = "txtHandbookSaveLocation";
-            this.txtHandbookSaveLocation.Size = new System.Drawing.Size(427, 23);
-            this.txtHandbookSaveLocation.TabIndex = 8;
-            // 
-            // btnHandbookBrowseSave
-            // 
-            this.btnHandbookBrowseSave.Enabled = false;
-            this.btnHandbookBrowseSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHandbookBrowseSave.Location = new System.Drawing.Point(472, 105);
-            this.btnHandbookBrowseSave.Name = "btnHandbookBrowseSave";
-            this.btnHandbookBrowseSave.Size = new System.Drawing.Size(100, 35);
-            this.btnHandbookBrowseSave.TabIndex = 9;
-            this.btnHandbookBrowseSave.Text = "Browse";
-            this.btnHandbookBrowseSave.UseVisualStyleBackColor = true;
-            this.btnHandbookBrowseSave.Click += new System.EventHandler(this.btnHandbookBrowseSave_Click);
-            // 
-            // chkHandbookOverrideDefaultSave
-            // 
-            this.chkHandbookOverrideDefaultSave.AutoSize = true;
-            this.chkHandbookOverrideDefaultSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHandbookOverrideDefaultSave.Location = new System.Drawing.Point(20, 84);
-            this.chkHandbookOverrideDefaultSave.Name = "chkHandbookOverrideDefaultSave";
-            this.chkHandbookOverrideDefaultSave.Size = new System.Drawing.Size(331, 24);
-            this.chkHandbookOverrideDefaultSave.TabIndex = 10;
-            this.chkHandbookOverrideDefaultSave.Text = "Override default save location and name";
-            this.chkHandbookOverrideDefaultSave.UseVisualStyleBackColor = true;
-            this.chkHandbookOverrideDefaultSave.CheckedChanged += new System.EventHandler(this.chkHandbookOverrideDefaultSave_CheckedChanged);
-            // 
-            // btnHandbookConvert
-            // 
-            this.btnHandbookConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHandbookConvert.Location = new System.Drawing.Point(233, 249);
-            this.btnHandbookConvert.Name = "btnHandbookConvert";
-            this.btnHandbookConvert.Size = new System.Drawing.Size(100, 35);
-            this.btnHandbookConvert.TabIndex = 11;
-            this.btnHandbookConvert.Text = "Convert";
-            this.btnHandbookConvert.UseVisualStyleBackColor = true;
-            this.btnHandbookConvert.Click += new System.EventHandler(this.btnHandbookConvert_Click);
-            // 
-            // btnLPConvert
-            // 
-            this.btnLPConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLPConvert.Location = new System.Drawing.Point(233, 249);
-            this.btnLPConvert.Name = "btnLPConvert";
-            this.btnLPConvert.Size = new System.Drawing.Size(100, 35);
-            this.btnLPConvert.TabIndex = 12;
-            this.btnLPConvert.Text = "Convert";
-            this.btnLPConvert.UseVisualStyleBackColor = true;
-            this.btnLPConvert.Click += new System.EventHandler(this.btnLPConvert_Click);
-            // 
-            // progressBarLP
-            // 
-            this.progressBarLP.Location = new System.Drawing.Point(20, 314);
-            this.progressBarLP.Name = "progressBarLP";
-            this.progressBarLP.Size = new System.Drawing.Size(527, 23);
-            this.progressBarLP.TabIndex = 14;
-            // 
-            // lblLPStatus
-            // 
-            this.lblLPStatus.AutoSize = true;
-            this.lblLPStatus.Location = new System.Drawing.Point(257, 294);
-            this.lblLPStatus.Name = "lblLPStatus";
-            this.lblLPStatus.Size = new System.Drawing.Size(53, 17);
-            this.lblLPStatus.TabIndex = 13;
-            this.lblLPStatus.Text = "Ready.";
+            this.chkLPDeleteXML.AutoSize = true;
+            this.chkLPDeleteXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLPDeleteXML.Location = new System.Drawing.Point(20, 180);
+            this.chkLPDeleteXML.Name = "chkLPDeleteXML";
+            this.chkLPDeleteXML.Size = new System.Drawing.Size(302, 24);
+            this.chkLPDeleteXML.TabIndex = 21;
+            this.chkLPDeleteXML.Text = "Delete temporary files after finishing";
+            this.chkLPDeleteXML.UseVisualStyleBackColor = true;
             // 
             // chkLPOverrideDefaultSave
             // 
@@ -307,12 +161,178 @@
             // 
             // txtLPFile
             // 
-            this.txtLPFile.Enabled = false;
+            this.txtLPFile.AllowDrop = true;
             this.txtLPFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLPFile.Location = new System.Drawing.Point(19, 48);
             this.txtLPFile.Name = "txtLPFile";
             this.txtLPFile.Size = new System.Drawing.Size(428, 23);
             this.txtLPFile.TabIndex = 15;
+            this.txtLPFile.TextChanged += new System.EventHandler(this.txtLPFile_TextChanged);
+            this.txtLPFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtLPFile_DragDrop);
+            this.txtLPFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtLPFile_DragEnter);
+            // 
+            // progressBarLP
+            // 
+            this.progressBarLP.Location = new System.Drawing.Point(20, 314);
+            this.progressBarLP.Name = "progressBarLP";
+            this.progressBarLP.Size = new System.Drawing.Size(527, 23);
+            this.progressBarLP.TabIndex = 14;
+            // 
+            // lblLPStatus
+            // 
+            this.lblLPStatus.AutoSize = true;
+            this.lblLPStatus.Location = new System.Drawing.Point(257, 294);
+            this.lblLPStatus.Name = "lblLPStatus";
+            this.lblLPStatus.Size = new System.Drawing.Size(53, 17);
+            this.lblLPStatus.TabIndex = 13;
+            this.lblLPStatus.Text = "Ready.";
+            // 
+            // btnLPConvert
+            // 
+            this.btnLPConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLPConvert.Location = new System.Drawing.Point(233, 249);
+            this.btnLPConvert.Name = "btnLPConvert";
+            this.btnLPConvert.Size = new System.Drawing.Size(100, 35);
+            this.btnLPConvert.TabIndex = 12;
+            this.btnLPConvert.Text = "Convert";
+            this.btnLPConvert.UseVisualStyleBackColor = true;
+            this.btnLPConvert.Click += new System.EventHandler(this.btnLPConvert_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.chkHandbookInstructorGuide);
+            this.tabPage2.Controls.Add(this.btnHandbookConvert);
+            this.tabPage2.Controls.Add(this.chkHandbookOverrideDefaultSave);
+            this.tabPage2.Controls.Add(this.btnHandbookBrowseSave);
+            this.tabPage2.Controls.Add(this.txtHandbookSaveLocation);
+            this.tabPage2.Controls.Add(this.chkHandbookDeletePictures);
+            this.tabPage2.Controls.Add(this.progressBarHandbook);
+            this.tabPage2.Controls.Add(this.lblHandbookStatus);
+            this.tabPage2.Controls.Add(this.lblHandbookFileTitle);
+            this.tabPage2.Controls.Add(this.btnHandbookBrowseOpen);
+            this.tabPage2.Controls.Add(this.txtHandbookFile);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(581, 340);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Handbook creator";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnHandbookConvert
+            // 
+            this.btnHandbookConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHandbookConvert.Location = new System.Drawing.Point(233, 249);
+            this.btnHandbookConvert.Name = "btnHandbookConvert";
+            this.btnHandbookConvert.Size = new System.Drawing.Size(100, 35);
+            this.btnHandbookConvert.TabIndex = 11;
+            this.btnHandbookConvert.Text = "Convert";
+            this.btnHandbookConvert.UseVisualStyleBackColor = true;
+            this.btnHandbookConvert.Click += new System.EventHandler(this.btnHandbookConvert_Click);
+            // 
+            // chkHandbookOverrideDefaultSave
+            // 
+            this.chkHandbookOverrideDefaultSave.AutoSize = true;
+            this.chkHandbookOverrideDefaultSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHandbookOverrideDefaultSave.Location = new System.Drawing.Point(20, 84);
+            this.chkHandbookOverrideDefaultSave.Name = "chkHandbookOverrideDefaultSave";
+            this.chkHandbookOverrideDefaultSave.Size = new System.Drawing.Size(331, 24);
+            this.chkHandbookOverrideDefaultSave.TabIndex = 10;
+            this.chkHandbookOverrideDefaultSave.Text = "Override default save location and name";
+            this.chkHandbookOverrideDefaultSave.UseVisualStyleBackColor = true;
+            this.chkHandbookOverrideDefaultSave.CheckedChanged += new System.EventHandler(this.chkHandbookOverrideDefaultSave_CheckedChanged);
+            // 
+            // btnHandbookBrowseSave
+            // 
+            this.btnHandbookBrowseSave.Enabled = false;
+            this.btnHandbookBrowseSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHandbookBrowseSave.Location = new System.Drawing.Point(472, 105);
+            this.btnHandbookBrowseSave.Name = "btnHandbookBrowseSave";
+            this.btnHandbookBrowseSave.Size = new System.Drawing.Size(100, 35);
+            this.btnHandbookBrowseSave.TabIndex = 9;
+            this.btnHandbookBrowseSave.Text = "Browse";
+            this.btnHandbookBrowseSave.UseVisualStyleBackColor = true;
+            this.btnHandbookBrowseSave.Click += new System.EventHandler(this.btnHandbookBrowseSave_Click);
+            // 
+            // txtHandbookSaveLocation
+            // 
+            this.txtHandbookSaveLocation.Enabled = false;
+            this.txtHandbookSaveLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHandbookSaveLocation.Location = new System.Drawing.Point(20, 111);
+            this.txtHandbookSaveLocation.Name = "txtHandbookSaveLocation";
+            this.txtHandbookSaveLocation.Size = new System.Drawing.Size(427, 23);
+            this.txtHandbookSaveLocation.TabIndex = 8;
+            // 
+            // chkHandbookDeletePictures
+            // 
+            this.chkHandbookDeletePictures.AutoSize = true;
+            this.chkHandbookDeletePictures.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHandbookDeletePictures.Location = new System.Drawing.Point(20, 165);
+            this.chkHandbookDeletePictures.Name = "chkHandbookDeletePictures";
+            this.chkHandbookDeletePictures.Size = new System.Drawing.Size(338, 24);
+            this.chkHandbookDeletePictures.TabIndex = 7;
+            this.chkHandbookDeletePictures.Text = "Delete slide pictures folder after finishing";
+            this.chkHandbookDeletePictures.UseVisualStyleBackColor = true;
+            // 
+            // progressBarHandbook
+            // 
+            this.progressBarHandbook.Location = new System.Drawing.Point(20, 314);
+            this.progressBarHandbook.Name = "progressBarHandbook";
+            this.progressBarHandbook.Size = new System.Drawing.Size(527, 23);
+            this.progressBarHandbook.TabIndex = 6;
+            // 
+            // lblHandbookStatus
+            // 
+            this.lblHandbookStatus.AutoSize = true;
+            this.lblHandbookStatus.Location = new System.Drawing.Point(257, 294);
+            this.lblHandbookStatus.Name = "lblHandbookStatus";
+            this.lblHandbookStatus.Size = new System.Drawing.Size(53, 17);
+            this.lblHandbookStatus.TabIndex = 5;
+            this.lblHandbookStatus.Text = "Ready.";
+            // 
+            // lblHandbookFileTitle
+            // 
+            this.lblHandbookFileTitle.AutoSize = true;
+            this.lblHandbookFileTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHandbookFileTitle.Location = new System.Drawing.Point(16, 16);
+            this.lblHandbookFileTitle.Name = "lblHandbookFileTitle";
+            this.lblHandbookFileTitle.Size = new System.Drawing.Size(282, 20);
+            this.lblHandbookFileTitle.TabIndex = 4;
+            this.lblHandbookFileTitle.Text = "Presentation to convert to handbook:";
+            // 
+            // btnHandbookBrowseOpen
+            // 
+            this.btnHandbookBrowseOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHandbookBrowseOpen.Location = new System.Drawing.Point(472, 42);
+            this.btnHandbookBrowseOpen.Name = "btnHandbookBrowseOpen";
+            this.btnHandbookBrowseOpen.Size = new System.Drawing.Size(100, 35);
+            this.btnHandbookBrowseOpen.TabIndex = 3;
+            this.btnHandbookBrowseOpen.Text = "Browse";
+            this.btnHandbookBrowseOpen.UseVisualStyleBackColor = true;
+            this.btnHandbookBrowseOpen.Click += new System.EventHandler(this.btnHandbookBrowseOpen_Click);
+            // 
+            // txtHandbookFile
+            // 
+            this.txtHandbookFile.AllowDrop = true;
+            this.txtHandbookFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHandbookFile.Location = new System.Drawing.Point(19, 48);
+            this.txtHandbookFile.Name = "txtHandbookFile";
+            this.txtHandbookFile.Size = new System.Drawing.Size(428, 23);
+            this.txtHandbookFile.TabIndex = 2;
+            this.txtHandbookFile.TextChanged += new System.EventHandler(this.txtHandbookFile_TextChanged);
+            this.txtHandbookFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtHandbookFile_DragDrop);
+            this.txtHandbookFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtHandbookFile_DragEnter);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(513, 486);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 35);
+            this.btnExit.TabIndex = 2;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // pictureBox1
             // 
@@ -324,16 +344,25 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // chkLPDeleteXML
+            // label1
             // 
-            this.chkLPDeleteXML.AutoSize = true;
-            this.chkLPDeleteXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLPDeleteXML.Location = new System.Drawing.Point(20, 180);
-            this.chkLPDeleteXML.Name = "chkLPDeleteXML";
-            this.chkLPDeleteXML.Size = new System.Drawing.Size(302, 24);
-            this.chkLPDeleteXML.TabIndex = 21;
-            this.chkLPDeleteXML.Text = "Delete temporary files after finishing";
-            this.chkLPDeleteXML.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(-1, 512);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "v1.0.1";
+            // 
+            // chkHandbookInstructorGuide
+            // 
+            this.chkHandbookInstructorGuide.AutoSize = true;
+            this.chkHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHandbookInstructorGuide.Location = new System.Drawing.Point(20, 195);
+            this.chkHandbookInstructorGuide.Name = "chkHandbookInstructorGuide";
+            this.chkHandbookInstructorGuide.Size = new System.Drawing.Size(202, 24);
+            this.chkHandbookInstructorGuide.TabIndex = 12;
+            this.chkHandbookInstructorGuide.Text = "Create Instructor guide";
+            this.chkHandbookInstructorGuide.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -341,6 +370,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(614, 528);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabContainer);
@@ -356,6 +386,7 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -388,6 +419,8 @@
         private System.Windows.Forms.Button btnLPBrowseOpen;
         private System.Windows.Forms.TextBox txtLPFile;
         private System.Windows.Forms.CheckBox chkLPDeleteXML;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkHandbookInstructorGuide;
     }
 }
 

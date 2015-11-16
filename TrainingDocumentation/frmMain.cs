@@ -84,12 +84,13 @@ namespace TrainingDocumentation
             HandbookPPT hbPPT = new HandbookPPT();
             string pptFileName = txtHandbookFile.Text;
             string exportSlidesRetVal = hbPPT.ExportSlides(pptFileName);
-            bckgHandbook.ReportProgress(50);
+            bckgHandbook.ReportProgress(33);
 
             this.Invoke(new MethodInvoker(delegate { UpdateHandbookLabel("Creating the handbook..."); }));
             HandbookDoc hbDOC = new HandbookDoc();
             string docFileName = txtHandbookSaveLocation.Text;
-            hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName);
+            bool instructorGuide = chkHandbookInstructorGuide.Checked;
+            hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName, instructorGuide);
             bckgHandbook.ReportProgress(100);
 
             if (chkHandbookDeletePictures.Checked)
@@ -238,6 +239,62 @@ namespace TrainingDocumentation
                 txtLPSaveLocation.Enabled = false;
                 btnLPBrowseSave.Enabled = false;
                 txtLPSaveLocation.Text = Path.GetDirectoryName(txtLPFile.Text) + "\\" + Path.GetFileNameWithoutExtension(txtLPFile.Text) + ".pptx";
+            }
+        }
+
+        private void txtLPFile_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            if (s[0].Substring(s[0].Length - 4) == "docx")
+                txtLPFile.Text = s[0];
+        }
+
+        private void txtLPFile_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void txtHandbookFile_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void txtHandbookFile_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            if (s[0].Substring(s[0].Length - 4) == "pptx")
+                txtHandbookFile.Text = s[0];
+        }
+
+        private void txtHandbookFile_TextChanged(object sender, EventArgs e)
+        {
+            if (!chkHandbookOverrideDefaultSave.Checked)
+            {
+                try
+                {
+                    txtHandbookSaveLocation.Text = Path.GetDirectoryName(txtHandbookFile.Text) + "\\" + Path.GetFileNameWithoutExtension(txtHandbookFile.Text) + ".docx";
+                }
+                catch
+                { }
+            }
+        }
+
+        private void txtLPFile_TextChanged(object sender, EventArgs e)
+        {
+            if (!chkLPOverrideDefaultSave.Checked)
+            {
+                try
+                {
+                    txtLPSaveLocation.Text = Path.GetDirectoryName(txtLPFile.Text) + "\\" + Path.GetFileNameWithoutExtension(txtLPFile.Text) + ".pptx";
+                }
+                catch
+                { }
             }
         }
     }

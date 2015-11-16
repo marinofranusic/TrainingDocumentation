@@ -521,5 +521,17 @@ namespace TrainingDocumentation.Properties {
                 this["QUESTIONS_SLIDE_TITLE"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("17.5")]
+        public float HANDBOOK_MAX_SLIDE_WIDTH {
+            get {
+                return ((float)(this["HANDBOOK_MAX_SLIDE_WIDTH"]));
+            }
+            set {
+                this["HANDBOOK_MAX_SLIDE_WIDTH"] = value;
+            }
+        }
     }
 }

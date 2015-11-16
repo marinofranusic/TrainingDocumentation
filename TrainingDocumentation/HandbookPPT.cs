@@ -8,7 +8,8 @@ using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Core;
 using System.IO;
 using System.Runtime.InteropServices;
-
+using DocumentFormat.OpenXml.Packaging;
+using P=DocumentFormat.OpenXml.Presentation;
 
 namespace TrainingDocumentation
 {
@@ -91,6 +92,35 @@ namespace TrainingDocumentation
                 }
             }
             return testString;
+        }
+
+        public bool SlideVisibile(PresentationDocument presentationDocument, int slideIndex)
+        {
+            bool retVal = true;
+
+            PresentationPart pp = presentationDocument.PresentationPart;
+            P.Presentation p = pp.Presentation;
+            P.SlideIdList slideIDList = p.SlideIdList;
+            P.SlideId slideId = slideIDList.ChildElements[slideIndex] as P.SlideId;
+            string slideRelID = slideId.RelationshipId;
+            SlidePart slidePart = pp.GetPartById(slideRelID) as SlidePart;
+            if (slidePart.Slide.Show != null)
+            {
+                if (!slidePart.Slide.Show.Value)
+                {
+                    retVal = false;
+                }
+                else
+                {
+                    retVal = true;
+                }
+            }
+            else
+            {
+                retVal = true;
+            }
+
+            return retVal;
         }
 
 

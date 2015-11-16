@@ -134,5 +134,8 @@
     <Setting Name="QUESTIONS_SLIDE_TITLE" Type="System.String" Scope="User">
       <Value Profile="(Default)">Questions?</Value>
     </Setting>
+    <Setting Name="HANDBOOK_MAX_SLIDE_WIDTH" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">17.5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
