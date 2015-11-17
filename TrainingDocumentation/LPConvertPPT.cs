@@ -22,102 +22,118 @@ namespace TrainingDocumentation
 
         public void CreateTemplateFromXML(string xmlFileName, PresentationDocument presentationDocument, BackgroundWorker bckgW)
         {
-            int slideNumber = 0;
-            x.XmlDocument xmlDoc = new x.XmlDocument();
-            xmlDoc.Load(xmlFileName);
-            x.XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/Course/Title");
-
-            string courseTitle = node.InnerText;
-
-            slideNumber = InsertTitleSlide(presentationDocument, slideNumber, courseTitle, Properties.Settings.Default.DEFAULT_TITLE_SLIDE_SUBTITLE, true);
-            
-            node = xmlDoc.DocumentElement.SelectSingleNode("/Course/Subjects");
-            List<List<string>> objectives = new List<List<string>>();
-
-            int totalNumOfTopics = 0;
-
-            foreach (x.XmlNode n in node.ChildNodes)
+            try
             {
-                if (n.Name == "Subject")
+                int slideNumber = 0;
+                x.XmlDocument xmlDoc = new x.XmlDocument();
+                xmlDoc.Load(xmlFileName);
+                x.XmlNode node = xmlDoc.DocumentElement.SelectSingleNode("/Course/Title");
+
+                string courseTitle = node.InnerText;
+
+                slideNumber = InsertTitleSlide(presentationDocument, slideNumber, courseTitle, Properties.Settings.Default.DEFAULT_TITLE_SLIDE_SUBTITLE, true);
+
+                node = xmlDoc.DocumentElement.SelectSingleNode("/Course/Subjects");
+                List<List<string>> objectives = new List<List<string>>();
+
+                int totalNumOfTopics = 0;
+
+                foreach (x.XmlNode n in node.ChildNodes)
                 {
-                    List<string> subjObjectives = new List<string>();
-                    foreach (x.XmlNode nc in n.ChildNodes)
+                    if (n.Name == "Subject")
                     {
-                        if (nc.Name == "Topic")
-                        {
-                            totalNumOfTopics++;
-                            int headingVal = Convert.ToInt32(nc.Attributes["Heading"].Value);
-                            if (headingVal == 1)
-                            {
-                                string objective = nc["Objective"].InnerText;
-                                subjObjectives.Add(objective);
-                            }
-                        }
-                    }
-                    objectives.Add(subjObjectives);
-                }
-            }
-
-            int subjectCounter = 0;
-            int topicCounter = 0;
-            foreach (x.XmlNode n in node.ChildNodes)
-            {
-                if (n.Name == "Subject")
-                {
-                    string lessonGoal = "";
-                    string subjectTitle = n.Attributes["SubjectTitle"].Value;
-                    if (string.Equals(subjectTitle, Properties.Settings.Default.INTRODUCTION_SUBJECT_TITLE, StringComparison.OrdinalIgnoreCase))
-                    {
-                        slideNumber = InsertIntroductionSlide(presentationDocument, slideNumber);
-
-                    }
-                    else
-                    {
-                        slideNumber = InsertTitleSlide(presentationDocument, slideNumber, courseTitle, subjectTitle, false);
-
+                        List<string> subjObjectives = new List<string>();
                         foreach (x.XmlNode nc in n.ChildNodes)
                         {
-                            if (nc.Name == "LessonGoal")
-                            {
-                                lessonGoal = nc.InnerText;
-                                slideNumber = InsertLessonGoalSlide(presentationDocument, slideNumber, lessonGoal, true);
-
-                                slideNumber = InsertLessonObjectivesSlide(presentationDocument, slideNumber, objectives[subjectCounter], true);
-
-                            }
                             if (nc.Name == "Topic")
                             {
-                                float progress = (((float)topicCounter / totalNumOfTopics) / 2) * 100;
-                                bckgW.ReportProgress(50 + (int)progress);
+                                totalNumOfTopics++;
                                 int headingVal = Convert.ToInt32(nc.Attributes["Heading"].Value);
-                                string topicTitle = nc["Title"].InnerText;
                                 if (headingVal == 1)
                                 {
-                                    List<string> topicDividerNotes = new List<string>();
-                                    topicDividerNotes.Add(nc["Objective"].InnerText);
-                                    topicDividerNotes.Add(nc["Methods"].InnerText);
-                                    topicDividerNotes.Add(nc["Evaluation"].InnerText);
-                                    topicDividerNotes.Add(nc["Time"].InnerText);
-                                    topicDividerNotes.Add(nc["Materials"].InnerText);
-                                    topicDividerNotes.Add(nc["Notes"].InnerText);
-                                    slideNumber = InsertTopicDividerSlide(presentationDocument, slideNumber, topicTitle, topicDividerNotes);
-
-
+                                    string objective = nc["Objective"].InnerText;
+                                    subjObjectives.Add(objective);
                                 }
-                                slideNumber = InsertContentSlide(presentationDocument, slideNumber, topicTitle);
-                                topicCounter++;
                             }
                         }
+                        objectives.Add(subjObjectives);
                     }
-
-                    //finishing up the subject
-                    slideNumber = InsertQuestionsSlide(presentationDocument, slideNumber);
-                    slideNumber = InsertLessonObjectivesSlide(presentationDocument, slideNumber, objectives[subjectCounter], false);
-                    slideNumber = InsertLessonGoalSlide(presentationDocument, slideNumber, lessonGoal, false);
                 }
-                subjectCounter++;
-            }
 
+                int subjectCounter = 0;
+                int topicCounter = 0;
+                foreach (x.XmlNode n in node.ChildNodes)
+                {
+                    if (n.Name == "Subject")
+                    {
+                        string lessonGoal = "";
+                        string subjectTitle = n.Attributes["SubjectTitle"].Value;
+                        if (string.Equals(subjectTitle, Properties.Settings.Default.INTRODUCTION_SUBJECT_TITLE, StringComparison.OrdinalIgnoreCase))
+                        {
+                            slideNumber = InsertIntroductionSlide(presentationDocument, slideNumber);
+
+                        }
+                        else
+                        {
+                            slideNumber = InsertTitleSlide(presentationDocument, slideNumber, courseTitle, subjectTitle, false);
+
+                            foreach (x.XmlNode nc in n.ChildNodes)
+                            {
+                                if (nc.Name == "LessonGoal")
+                                {
+                                    lessonGoal = nc.InnerText;
+                                    slideNumber = InsertLessonGoalSlide(presentationDocument, slideNumber, lessonGoal, true);
+
+                                    slideNumber = InsertLessonObjectivesSlide(presentationDocument, slideNumber, objectives[subjectCounter], true);
+
+                                }
+                                if (nc.Name == "Topic")
+                                {
+                                    float progress = (((float)topicCounter / totalNumOfTopics) / 2) * 100;
+                                    bckgW.ReportProgress(50 + (int)progress);
+                                    int headingVal = Convert.ToInt32(nc.Attributes["Heading"].Value);
+                                    string topicTitle = nc["Title"].InnerText;
+                                    if (headingVal == 1)
+                                    {
+                                        List<string> topicDividerNotes = new List<string>();
+                                        topicDividerNotes.Add(nc["Objective"].InnerText);
+                                        topicDividerNotes.Add(nc["Methods"].InnerText);
+                                        topicDividerNotes.Add(nc["Evaluation"].InnerText);
+                                        topicDividerNotes.Add(nc["Time"].InnerText);
+                                        topicDividerNotes.Add(nc["Materials"].InnerText);
+                                        topicDividerNotes.Add(nc["Notes"].InnerText);
+                                        slideNumber = InsertTopicDividerSlide(presentationDocument, slideNumber, topicTitle, topicDividerNotes);
+
+
+                                    }
+                                    slideNumber = InsertContentSlide(presentationDocument, slideNumber, topicTitle);
+                                    topicCounter++;
+                                }
+                            }
+                        }
+
+                        //finishing up the subject
+                        slideNumber = InsertQuestionsSlide(presentationDocument, slideNumber);
+                        slideNumber = InsertLessonObjectivesSlide(presentationDocument, slideNumber, objectives[subjectCounter], false);
+                        slideNumber = InsertLessonGoalSlide(presentationDocument, slideNumber, lessonGoal, false);
+                    }
+                    subjectCounter++;
+                }
+            }
+            catch(Exception ex)
+            {
+                AddToLog("Problem with creating presentation document. " + ex.Message);
+                MessageBox.Show("Problem with creating presentation document. " + ex.Message);
+            }
+        }
+
+        private void AddToLog(string message)
+        {
+            string fileName = Environment.CurrentDirectory + "\\Log.txt";
+            using (StreamWriter sw = File.AppendText(fileName))
+            {
+                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+            }
         }
 
         private int InsertQuestionsSlide(PresentationDocument presentationDocument, int slideNumber)
@@ -1286,7 +1302,8 @@ namespace TrainingDocumentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                AddToLog("Problem with saving PPTM to PPTX. " + ex.Message);
+                MessageBox.Show("Powerpoint template problem. " + ex.Message);
             }
             bckgW.ReportProgress(40);
             //Thread.Sleep(1000);

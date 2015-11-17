@@ -22,6 +22,7 @@ namespace TrainingDocumentation
 
         public void CreateXMLFromLPTable(string filepath, string xmlLP, BackgroundWorker bckgW)
         {
+            AddToLog("Start creating XML.");
             // Use the file name and path passed in as an argument to 
             // open an existing document.    
             StringBuilder sb = new StringBuilder();
@@ -218,6 +219,16 @@ namespace TrainingDocumentation
             writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Close();
+            AddToLog("XML created.");
+        }
+
+        private void AddToLog(string message)
+        {
+            string fileName = Environment.CurrentDirectory + "\\Log.txt";
+            using (StreamWriter sw = File.AppendText(fileName))
+            {
+                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+            }
         }
 
         private string ReadTableCell(WordDoc.TableRow tr, int column)

@@ -9,7 +9,8 @@ using Microsoft.Office.Core;
 using System.IO;
 using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml.Packaging;
-using P=DocumentFormat.OpenXml.Presentation;
+using P = DocumentFormat.OpenXml.Presentation;
+using System.Windows.Forms;
 
 namespace TrainingDocumentation
 {
@@ -30,6 +31,8 @@ namespace TrainingDocumentation
             }
             catch (Exception ex)
             {
+                AddToLog("Problem with exporting slide pictures. " + ex.Message);
+                MessageBox.Show("Problem with exporting slide pictures. " + ex.Message);
                 retVal = ex.Message;
             }
             return retVal;
@@ -92,6 +95,15 @@ namespace TrainingDocumentation
                 }
             }
             return testString;
+        }
+
+        private void AddToLog(string message)
+        {
+            string fileName = Environment.CurrentDirectory + "\\Log.txt";
+            using (StreamWriter sw = File.AppendText(fileName))
+            {
+                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+            }
         }
 
         public bool SlideVisibile(PresentationDocument presentationDocument, int slideIndex)

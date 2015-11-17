@@ -42,6 +42,7 @@
             this.lblLPStatus = new System.Windows.Forms.Label();
             this.btnLPConvert = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkHandbookInstructorGuide = new System.Windows.Forms.CheckBox();
             this.btnHandbookConvert = new System.Windows.Forms.Button();
             this.chkHandbookOverrideDefaultSave = new System.Windows.Forms.CheckBox();
             this.btnHandbookBrowseSave = new System.Windows.Forms.Button();
@@ -55,9 +56,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.bckgHandbook = new System.ComponentModel.BackgroundWorker();
             this.bckgLP = new System.ComponentModel.BackgroundWorker();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.chkHandbookInstructorGuide = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabContainer.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -66,8 +66,8 @@
             // 
             // tabContainer
             // 
-            this.tabContainer.Controls.Add(this.tabPage1);
             this.tabContainer.Controls.Add(this.tabPage2);
+            this.tabContainer.Controls.Add(this.tabPage1);
             this.tabContainer.Location = new System.Drawing.Point(12, 111);
             this.tabContainer.Name = "tabContainer";
             this.tabContainer.SelectedIndex = 0;
@@ -219,6 +219,17 @@
             this.tabPage2.Text = "Handbook creator";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // chkHandbookInstructorGuide
+            // 
+            this.chkHandbookInstructorGuide.AutoSize = true;
+            this.chkHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHandbookInstructorGuide.Location = new System.Drawing.Point(20, 195);
+            this.chkHandbookInstructorGuide.Name = "chkHandbookInstructorGuide";
+            this.chkHandbookInstructorGuide.Size = new System.Drawing.Size(202, 24);
+            this.chkHandbookInstructorGuide.TabIndex = 12;
+            this.chkHandbookInstructorGuide.Text = "Create Instructor guide";
+            this.chkHandbookInstructorGuide.UseVisualStyleBackColor = true;
+            // 
             // btnHandbookConvert
             // 
             this.btnHandbookConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -334,16 +345,6 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::TrainingDocumentation.Properties.Resources.Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(581, 97);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -351,18 +352,17 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 3;
-            this.label1.Text = "v1.0.1";
+            this.label1.Text = "v1.1.0";
             // 
-            // chkHandbookInstructorGuide
+            // pictureBox1
             // 
-            this.chkHandbookInstructorGuide.AutoSize = true;
-            this.chkHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHandbookInstructorGuide.Location = new System.Drawing.Point(20, 195);
-            this.chkHandbookInstructorGuide.Name = "chkHandbookInstructorGuide";
-            this.chkHandbookInstructorGuide.Size = new System.Drawing.Size(202, 24);
-            this.chkHandbookInstructorGuide.TabIndex = 12;
-            this.chkHandbookInstructorGuide.Text = "Create Instructor guide";
-            this.chkHandbookInstructorGuide.UseVisualStyleBackColor = true;
+            this.pictureBox1.Image = global::TrainingDocumentation.Properties.Resources.LogoTraining;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(581, 97);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 

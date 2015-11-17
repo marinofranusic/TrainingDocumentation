@@ -29,6 +29,10 @@ namespace TrainingDocumentation
             try
             {
                 string templateFile = Environment.CurrentDirectory + "\\Templates\\StudentHandbookTemplate.docx";
+                if(InstructorGuide)
+                {
+                    templateFile = Environment.CurrentDirectory + "\\Templates\\InstructorGuideTemplate.docx";
+                }
                 File.Copy(templateFile, saveName, true);
                 string savePath = Path.GetDirectoryName(pptName) + "\\" + Path.GetFileNameWithoutExtension(pptName);
 
@@ -46,8 +50,8 @@ namespace TrainingDocumentation
                     bckgWorker.ReportProgress(33 + (int)progress);
                     int a = fileName.IndexOf("Slide");
                     string tempString = fileName.Substring(0, a) + "Slide" + i.ToString() + ".png";
-
-                    if (hbp.SlideVisibile(presentationDocument, i-1))
+                    int hbSlideYesNo = GetHBSlideStatus(presentationDocument, i - 1);
+                    if (((hbp.SlideVisibile(presentationDocument, i-1) == true && hbSlideYesNo==0) || hbSlideYesNo==1) && (hbSlideYesNo!=2))
                     {
 
                         InsertAPicture(wordprocessingDocument, tempString);
@@ -67,8 +71,60 @@ namespace TrainingDocumentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                AddToLog("Problem with creating handbook document. " + ex.Message);
+                MessageBox.Show("Problem with creating handbook document. " + ex.Message);
             }
+        }
+
+        private int GetHBSlideStatus(PresentationDocument presentationDocument, int slideIndex)
+        {
+            int retVal = 0;
+
+            if (presentationDocument == null)
+            {
+                throw new ArgumentNullException("presentationDocument");
+            }
+            if (slideIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("slideIndex");
+            }
+            PresentationPart presentationPart = presentationDocument.PresentationPart;
+            if (presentationPart != null && presentationPart.Presentation != null)
+            {
+                P.Presentation presentation = presentationPart.Presentation;
+                if (presentation.SlideIdList != null)
+                {
+                    OpenXmlElementList slideIds = presentation.SlideIdList.ChildElements;
+                    if (slideIndex < slideIds.Count)
+                    {
+                        string slidePartRelationshipId = (slideIds[slideIndex] as P.SlideId).RelationshipId;
+                        SlidePart slidePart = (SlidePart)presentationPart.GetPartById(slidePartRelationshipId);
+                        NotesSlidePart notesSlidePart1 = slidePart.NotesSlidePart;
+                        if (notesSlidePart1 == null) return 0;
+                        P.NotesSlide notesSlide = notesSlidePart1.NotesSlide;
+                        P.CommonSlideData csldData = notesSlide.CommonSlideData;
+                        P.ShapeTree shpTree = csldData.ShapeTree;
+                        P.Shape shp = shpTree.Elements<P.Shape>().ElementAt(1);
+                        P.TextBody tb = shp.Elements<P.TextBody>().ElementAt(0);
+                        Drawing.Paragraph para = tb.Elements<Drawing.Paragraph>().ElementAt(0);
+                        string tempStr = "";
+                        foreach (Drawing.Run r in para.Elements<Drawing.Run>())
+                        {
+                            tempStr += r.InnerText;
+                        }
+                        if(tempStr.Contains("*hbno*"))
+                        {
+                            retVal = 2;
+                        }
+                        else if(tempStr.Contains("*hbyes*"))
+                        {
+                            retVal = 1;
+                        }
+                    }
+                }
+            }
+
+            return retVal;
         }
 
 
@@ -108,8 +164,19 @@ namespace TrainingDocumentation
                         bool instrNotesopen = false;
                         bool collectText = false;
                         int heading = 0;
+                        string firstParaText = "";
                         foreach (Drawing.Paragraph para in tb.Elements<Drawing.Paragraph>())
                         {
+                            foreach (Drawing.Run r in para.Elements<Drawing.Run>())
+                            {
+                                firstParaText += r.InnerText;
+                            }
+                            if (firstParaText.Contains("*hbno*") || firstParaText.Contains("*hbyes*"))
+                            {
+                                continue;
+                            }
+                            
+
                             bool b = false;
                             bool i = false;
                             bool u = false;
@@ -162,6 +229,7 @@ namespace TrainingDocumentation
                                 collectedText += r.InnerText;
                                 tempStr = collectedText;
                                 string textToWrite = "";
+                                
                                 int astLoc = tempStr.IndexOf("*");
                                 if (astLoc != -1)
                                 {
@@ -778,6 +846,15 @@ namespace TrainingDocumentation
 
             AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart), heightEmus, widthEmus);
             
+        }
+
+        private void AddToLog(string message)
+        {
+            string fileName = Environment.CurrentDirectory + "\\Log.txt";
+            using (StreamWriter sw = File.AppendText(fileName))
+            {
+                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+            }
         }
 
         private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId, long h, long w)

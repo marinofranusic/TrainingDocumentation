@@ -42,27 +42,42 @@ namespace TrainingDocumentation
 
         private void BckgLP_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Reading lesson plan..."); }));
-            bckgLP.ReportProgress(0);
-            LPConvertDOC lpDOC = new LPConvertDOC();
-            string lessonPlanFileName = txtLPFile.Text;
-            string xmlFileName = Path.GetDirectoryName(lessonPlanFileName) + "\\" + Path.GetFileNameWithoutExtension(lessonPlanFileName) + ".xml";
-            lpDOC.CreateXMLFromLPTable(lessonPlanFileName, xmlFileName, bckgLP);
-            bckgLP.ReportProgress(33);
-            this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Preparing Powerpoint template..."); }));
-            string presentationFileTemplate = Environment.CurrentDirectory + "\\Templates\\Template.pptm";
-            string presentationFile = txtLPSaveLocation.Text;
-            LPConvertPPT lpcPPT = new LPConvertPPT();
-            lpcPPT.CopyTemplateToPresentation(presentationFileTemplate, presentationFile, bckgLP);
-            this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Filling the template..."); }));
-            DocumentFormat.OpenXml.Packaging.PresentationDocument presentationDocument = DocumentFormat.OpenXml.Packaging.PresentationDocument.Open(presentationFile, true);
-            lpcPPT.CreateTemplateFromXML(xmlFileName, presentationDocument, bckgLP);
-            presentationDocument.Close();
-            if (chkLPDeleteXML.Checked)
+            try
             {
-                File.Delete(xmlFileName);
+                AddToLog("Start Lesson plan conversion.");
+                this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Reading lesson plan..."); }));
+                bckgLP.ReportProgress(0);
+                LPConvertDOC lpDOC = new LPConvertDOC();
+                string lessonPlanFileName = txtLPFile.Text;
+                AddToLog("File to convert: " + txtLPFile.Text);
+                string xmlFileName = Path.GetDirectoryName(lessonPlanFileName) + "\\" + Path.GetFileNameWithoutExtension(lessonPlanFileName) + ".xml";
+                AddToLog("Creating XML file: " + xmlFileName);
+                lpDOC.CreateXMLFromLPTable(lessonPlanFileName, xmlFileName, bckgLP);
+                bckgLP.ReportProgress(33);
+                this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Preparing Powerpoint template..."); }));
+                string presentationFileTemplate = Environment.CurrentDirectory + "\\Templates\\Template.pptm";
+                string presentationFile = txtLPSaveLocation.Text;
+                LPConvertPPT lpcPPT = new LPConvertPPT();
+                AddToLog("Copy PPTM to PPTX.");
+                lpcPPT.CopyTemplateToPresentation(presentationFileTemplate, presentationFile, bckgLP);
+                this.Invoke(new MethodInvoker(delegate { UpdateLPLabel("Filling the template..."); }));
+                DocumentFormat.OpenXml.Packaging.PresentationDocument presentationDocument = DocumentFormat.OpenXml.Packaging.PresentationDocument.Open(presentationFile, true);
+                AddToLog("Creating presentation from XML.");
+                lpcPPT.CreateTemplateFromXML(xmlFileName, presentationDocument, bckgLP);
+                presentationDocument.Close();
+                if (chkLPDeleteXML.Checked)
+                {
+                    AddToLog("Deleting XML file.");
+                    File.Delete(xmlFileName);
+                }
+                bckgLP.ReportProgress(100);
+                AddToLog("Lesson plan conversion done.");
             }
-            bckgLP.ReportProgress(100);
+            catch(Exception ex)
+            {
+                AddToLog("Problem in Lesson plan conversion: " + ex.Message);
+                MessageBox.Show("There was a problem with Lesson plan conversion." + ex.Message);
+            }
         }
 
         private void BckgHandbook_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -78,25 +93,37 @@ namespace TrainingDocumentation
 
         private void BckgHandbook_DoWork(object sender, DoWorkEventArgs e)
         {
-            this.Invoke(new MethodInvoker(delegate { UpdateHandbookLabel("Exporting slides (this may take a while)..."); }));
-            bckgHandbook.ReportProgress(0);
-
-            HandbookPPT hbPPT = new HandbookPPT();
-            string pptFileName = txtHandbookFile.Text;
-            string exportSlidesRetVal = hbPPT.ExportSlides(pptFileName);
-            bckgHandbook.ReportProgress(33);
-
-            this.Invoke(new MethodInvoker(delegate { UpdateHandbookLabel("Creating the handbook..."); }));
-            HandbookDoc hbDOC = new HandbookDoc();
-            string docFileName = txtHandbookSaveLocation.Text;
-            bool instructorGuide = chkHandbookInstructorGuide.Checked;
-            hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName, instructorGuide);
-            bckgHandbook.ReportProgress(100);
-
-            if (chkHandbookDeletePictures.Checked)
+            try
             {
-                string folderName = Path.GetDirectoryName(pptFileName) + "\\" + Path.GetFileNameWithoutExtension(pptFileName);
-                Directory.Delete(folderName, true);
+                AddToLog("Start Handbook conversion.");
+                this.Invoke(new MethodInvoker(delegate { UpdateHandbookLabel("Exporting slides (this may take a while)..."); }));
+                bckgHandbook.ReportProgress(0);
+
+                HandbookPPT hbPPT = new HandbookPPT();
+                string pptFileName = txtHandbookFile.Text;
+                AddToLog("Start exporting slides from: " + pptFileName);
+                string exportSlidesRetVal = hbPPT.ExportSlides(pptFileName);
+                bckgHandbook.ReportProgress(33);
+
+                this.Invoke(new MethodInvoker(delegate { UpdateHandbookLabel("Creating the handbook..."); }));
+                HandbookDoc hbDOC = new HandbookDoc();
+                string docFileName = txtHandbookSaveLocation.Text;
+                bool instructorGuide = chkHandbookInstructorGuide.Checked;
+                AddToLog("Start creating handbook document: " + docFileName);
+                hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName, instructorGuide);
+                bckgHandbook.ReportProgress(100);
+                AddToLog("Handbook conversion finished.");
+                if (chkHandbookDeletePictures.Checked)
+                {
+                    string folderName = Path.GetDirectoryName(pptFileName) + "\\" + Path.GetFileNameWithoutExtension(pptFileName);
+                    AddToLog("Deleting slide pictures folder: " + folderName);
+                    Directory.Delete(folderName, true);
+                }
+            }
+            catch(Exception ex)
+            {
+                AddToLog("Problem in handbook conversion: " + ex.Message);
+                MessageBox.Show("There was a problem with handbook conversion." + ex.Message);
             }
         }
 
@@ -295,6 +322,15 @@ namespace TrainingDocumentation
                 }
                 catch
                 { }
+            }
+        }
+
+        private void AddToLog(string message)
+        {
+            string fileName = Environment.CurrentDirectory + "\\Log.txt";
+            using (StreamWriter sw = File.AppendText(fileName))
+            {
+                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
             }
         }
     }
