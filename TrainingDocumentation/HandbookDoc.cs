@@ -26,6 +26,8 @@ namespace TrainingDocumentation
     {
         public void CreateDocument(string pptName, BackgroundWorker bckgWorker, string saveName, bool InstructorGuide)
         {
+            PresentationDocument presentationDocument = null;
+            WordprocessingDocument wordprocessingDocument = null;
             try
             {
                 string templateFile = Environment.CurrentDirectory + "\\Templates\\StudentHandbookTemplate.docx";
@@ -36,8 +38,8 @@ namespace TrainingDocumentation
                 File.Copy(templateFile, saveName, true);
                 string savePath = Path.GetDirectoryName(pptName) + "\\" + Path.GetFileNameWithoutExtension(pptName);
 
-                PresentationDocument presentationDocument = PresentationDocument.Open(pptName, true);
-                WordprocessingDocument wordprocessingDocument = WordprocessingDocument.Open(saveName, true);
+                presentationDocument = PresentationDocument.Open(pptName, true);
+                wordprocessingDocument = WordprocessingDocument.Open(saveName, true);
 
                 string[] fileEntries = Directory.GetFiles(savePath);
                 HandbookPPT hbp = new HandbookPPT();
@@ -53,20 +55,21 @@ namespace TrainingDocumentation
                     int hbSlideYesNo = GetHBSlideStatus(presentationDocument, i - 1);
                     if (((hbp.SlideVisibile(presentationDocument, i-1) == true && hbSlideYesNo==0) || hbSlideYesNo==1) && (hbSlideYesNo!=2))
                     {
-
+                        //if (i == 2)
+                        //    AddSectionBreak(true, wordprocessingDocument);
                         InsertAPicture(wordprocessingDocument, tempString);
                         NotesInSlideToWord(presentationDocument, i-1, wordprocessingDocument, InstructorGuide);
-                        if(i<fileEntries.Length)
-                            InsertPageBreak(wordprocessingDocument);
+                        //if (i == 2)
+                        //    AddSectionBreak(false, wordprocessingDocument);
+                        if (i < fileEntries.Length)
+                        {
+                            InsertPageBreak(wordprocessingDocument); 
+                        }
                     }
 
                     i++;
                 }
                 bckgWorker.ReportProgress(85);
-                presentationDocument.Close();
-                bckgWorker.ReportProgress(95);
-                wordprocessingDocument.Close();
-                
 
             }
             catch (Exception ex)
@@ -74,7 +77,70 @@ namespace TrainingDocumentation
                 AddToLog("Problem with creating handbook document. " + ex.Message);
                 MessageBox.Show("Problem with creating handbook document. " + ex.Message);
             }
+            finally
+            {
+                presentationDocument.Close();
+                wordprocessingDocument.Close();
+                bckgWorker.ReportProgress(95);
+            }
         }
+
+        public void AddSectionBreak(bool landscape, WordprocessingDocument doc)
+        {
+            //NOTE: does not work
+            if (landscape)
+            {
+                doc.MainDocumentPart.Document.Body.Append(
+                  new WordDoc.Paragraph(
+                      new WordDoc.ParagraphProperties(
+                          new WordDoc.SectionProperties(
+                              new WordDoc.PageSize()
+                              {
+                                  Width = (UInt32Value)16840U,
+                                  Height = (UInt32Value)11907U//,
+                                  //Orient = WordDoc.PageOrientationValues.Landscape,
+                                  //Code = (UInt16Value)9
+                              },
+                              new WordDoc.PageMargin()
+                              {
+                                  Top = 851,
+                                  Right = 567,
+                                  Bottom = 1344,
+                                  Left = 981,
+                                  Header = (UInt32Value)567U,
+                                  Footer = (UInt32Value)567U,
+                                  Gutter = (UInt32Value)0U
+                              },
+                              new WordDoc.SectionType()
+                              {
+                                  Val = WordDoc.SectionMarkValues.NextPage
+                              }
+                              ))));
+            }
+            else
+            {
+                doc.MainDocumentPart.Document.Body.Append(
+                  new WordDoc.Paragraph(
+                      new WordDoc.ParagraphProperties(
+                          new WordDoc.SectionProperties(
+                              new WordDoc.PageSize()
+                              {
+                                  Width = (UInt32Value)12240U,
+                                  Height = (UInt32Value)15840U
+                              },
+                              new WordDoc.PageMargin()
+                              {
+                                  Top = 720,
+                                  Right = Convert.ToUInt32(1 * 1440.0),
+                                  Bottom = 360,
+                                  Left = Convert.ToUInt32(1 * 1440.0),
+                                  Header = (UInt32Value)450U,
+                                  Footer = (UInt32Value)720U,
+                                  Gutter = (UInt32Value)0U
+                              }))));
+            }
+        }
+
 
         private int GetHBSlideStatus(PresentationDocument presentationDocument, int slideIndex)
         {
@@ -165,14 +231,18 @@ namespace TrainingDocumentation
                         bool collectText = false;
                         int heading = 0;
                         string firstParaText = "";
+                        string paragraphText = "";
                         foreach (Drawing.Paragraph para in tb.Elements<Drawing.Paragraph>())
                         {
+                            paragraphText = "";
                             foreach (Drawing.Run r in para.Elements<Drawing.Run>())
                             {
                                 firstParaText += r.InnerText;
+                                paragraphText += r.InnerText;
                             }
                             if (firstParaText.Contains("*hbno*") || firstParaText.Contains("*hbyes*"))
                             {
+                                firstParaText = "";
                                 continue;
                             }
                             
@@ -213,7 +283,7 @@ namespace TrainingDocumentation
                             {
                                 numberingID = AddParagraphToWordNumbering(wordprocessingDocument, numberingID);
                             }
-                            else if (!instrNotesopen)
+                            else if (!instrNotesopen && !paragraphText.Contains("**") && !paragraphText.Contains("*h1*") && !paragraphText.Contains("*h2*") && !paragraphText.Contains("*h3*"))
                             {
                                 AddParagraphToWord(wordprocessingDocument);
                                 numberingID = -1;
@@ -291,6 +361,7 @@ namespace TrainingDocumentation
                                             {
                                                 collectedText = tempStr.Substring(astLoc + 4);
                                                 int a = collectedText.IndexOf("*h1*");
+                                                collectText = false;    //20.01. testing added this
                                                 if (a != -1)
                                                 {
                                                     int a1 = collectedText.IndexOf("*h1*");
@@ -319,6 +390,7 @@ namespace TrainingDocumentation
                                             {
                                                 collectedText = tempStr.Substring(astLoc + 4);
                                                 int a = collectedText.IndexOf("*h2*");
+                                                collectText = false;    //20.01. testing added this
                                                 if (a != -1)
                                                 {
                                                     int a1 = collectedText.IndexOf("*h2*");
@@ -347,6 +419,7 @@ namespace TrainingDocumentation
                                             {
                                                 collectedText = tempStr.Substring(astLoc + 4);
                                                 int a = collectedText.IndexOf("*h3*");
+                                                collectText = false;    //20.01. testing added this
                                                 if (a != -1)
                                                 {
                                                     int a1 = collectedText.IndexOf("*h3*");
@@ -498,6 +571,8 @@ namespace TrainingDocumentation
             WordDoc.Paragraph para = body.AppendChild(new WordDoc.Paragraph());
         }
 
+        
+
         public void AddTextToWord(WordprocessingDocument doc, string text, bool bold, bool italic, bool underline, int heading)
         {
             MainDocumentPart mainPart = doc.MainDocumentPart;
@@ -564,141 +639,7 @@ namespace TrainingDocumentation
 
             }
         }
-
-        //public void CreateDocument(string pptName, BackgroundWorker bckgWorker, string saveName)
-        //{
-        //    try
-        //    {
-        //        Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
-
-        //        object missing = System.Reflection.Missing.Value;
-        //        object oHeadingStyle1 = WdBuiltinStyle.wdStyleHeading1;
-        //        object oHeadingStyle2 = WdBuiltinStyle.wdStyleHeading2;
-        //        object oHeadingStyle3 = WdBuiltinStyle.wdStyleHeading3;
-        //        object oBodyTextStyle = WdBuiltinStyle.wdStyleBodyText;
-
-        //        string templateFile = Environment.CurrentDirectory + "\\Templates\\StudentHandbookTemplate.docx";
-
-        //        Document document = winword.Documents.Open(templateFile);
-        //        object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
-
-
-        //        string savePath = Path.GetDirectoryName(pptName) + "\\" + Path.GetFileNameWithoutExtension(pptName);
-
-        //        string[] fileEntries = Directory.GetFiles(savePath);
-
-        //        var app = new Microsoft.Office.Interop.PowerPoint.Application();
-        //        var pres = app.Presentations;
-        //        var pptfile = pres.Open(pptName, Microsoft.Office.Core.MsoTriState.msoTrue, Microsoft.Office.Core.MsoTriState.msoTrue, Microsoft.Office.Core.MsoTriState.msoFalse);
-
-        //        int i = 1;
-        //        int counter = 0;
-        //        foreach (string fileName in fileEntries)
-        //        {
-        //            counter++;
-        //            float progress = (((float)counter / fileEntries.Length) / 2) * 100;
-        //            bckgWorker.ReportProgress(50 + (int)progress);
-        //            int a = fileName.IndexOf("Slide");
-        //            string tempString = fileName.Substring(0, a) + "Slide" + i.ToString() + ".png";
-
-        //            if (pptfile.Slides[i].SlideShowTransition.Hidden != MsoTriState.msoTrue)
-        //            {
-        //                object what = WdGoToItem.wdGoToPercent;
-        //                object which = WdGoToDirection.wdGoToLast;
-        //                document.Application.Selection.GoTo(ref what, ref which, ref missing, ref missing);
-        //                document.Application.Selection.TypeBackspace();
-        //                document.Application.Selection.InsertBreak(WdBreakType.wdPageBreak);
-
-        //                var pPic = document.Paragraphs.Add();
-        //                pPic.Format.SpaceAfter = 6f;
-
-        //                InlineShape shpPic = document.InlineShapes.AddPicture(tempString, Range: pPic.Range);
-        //                shpPic.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleSingle;
-
-
-        //                shpPic.LockAspectRatio = MsoTriState.msoCTrue;
-        //                shpPic.Height = 370f;
-
-        //                object style_name = "Heading 1";
-        //                //notes.Range.set_Style(ref oBodyTextStyle);
-        //                HandbookPPT hbp = new HandbookPPT();
-        //                string strNotes = hbp.GetNotes(pptfile.Slides[i]);
-        //                string h1 = GetHeading1(strNotes);
-        //                if (h1 != "")
-        //                {
-        //                    var h1p = document.Paragraphs.Add();
-
-        //                    h1p.Range.Text = h1;
-        //                    h1p.set_Style(ref style_name);
-
-        //                    h1p.Range.InsertParagraphAfter();
-        //                    h1p.Outdent();
-        //                    strNotes = RemoveHeading1(strNotes);
-
-        //                }
-
-        //                string h2 = GetHeading2(strNotes);
-        //                if (h2 != "")
-        //                {
-        //                    var h2p = document.Paragraphs.Add();
-
-        //                    h2p.Range.Text = h2;
-        //                    style_name = "Heading 2";
-        //                    h2p.set_Style(ref style_name);
-
-        //                    h2p.Range.InsertParagraphAfter();
-        //                    h2p.Outdent();
-        //                    strNotes = RemoveHeading2(strNotes);
-
-        //                }
-
-        //                string h3 = GetHeading3(strNotes);
-        //                if (h3 != "")
-        //                {
-        //                    var h3p = document.Paragraphs.Add();
-
-        //                    h3p.Range.Text = h3;
-        //                    style_name = "Heading 3";
-        //                    h3p.set_Style(ref style_name);
-
-        //                    h3p.Range.InsertParagraphAfter();
-        //                    h3p.Outdent();
-        //                    strNotes = RemoveHeading3(strNotes);
-
-        //                }
-
-        //                var notes = document.Paragraphs.Add();
-
-        //                notes.Range.Text = strNotes;
-        //                style_name = "Normal";
-        //                notes.set_Style(ref style_name);
-        //                notes.Outdent();
-        //                notes.Range.InsertParagraphAfter();
-        //            }
-
-        //            i++;
-        //        }
-
-        //        //Save the document
-        //        string savePathDocFile = saveName;
-
-        //        object filename = savePathDocFile;
-        //        document.SaveAs2(ref filename);
-        //        document.Close(ref missing, ref missing, ref missing);
-        //        document = null;
-        //        winword.Quit(ref missing, ref missing, ref missing);
-        //        winword = null;
-
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
-
-
+        
         private string GetHeading1(string inputString)
         {
             string testString = "";
@@ -850,10 +791,18 @@ namespace TrainingDocumentation
 
         private void AddToLog(string message)
         {
-            string fileName = Environment.CurrentDirectory + "\\Log.txt";
-            using (StreamWriter sw = File.AppendText(fileName))
+            try
             {
-                sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+                //string fileName = Environment.CurrentDirectory + "\\Log.txt";
+                string fileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Log.txt";
+                using (StreamWriter sw = File.AppendText(fileName))
+                {
+                    sw.WriteLine("{0}: {1}", DateTime.Now.ToString(), message);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to update the log file! " + ex.Message);
             }
         }
 
