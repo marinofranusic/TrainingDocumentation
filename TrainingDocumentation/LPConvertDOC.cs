@@ -51,7 +51,7 @@ namespace TrainingDocumentation
                 {
                     foreach (WordDoc.Table table in doc.MainDocumentPart.Document.Body.Elements<WordDoc.Table>())
                     {
-                        totalRowCount += table.Elements<WordDoc.TableRow>().Count();
+                        totalRowCount += table.Elements<WordDoc.TableRow>().Count();                        
                     }
                 }
                 catch(Exception ex)
@@ -295,7 +295,14 @@ namespace TrainingDocumentation
                         foreach (WordDoc.Run tcpr in tcp.Elements<WordDoc.Run>())
                         {
                             WordDoc.RunProperties tcprp = tcpr.RunProperties;
-                            cellFontSize = tcprp.FontSize.Val.ToString();
+                            if (tcprp.FontSize != null)
+                            {
+                                cellFontSize = tcprp.FontSize.Val.ToString();
+                            }
+                            else
+                            {
+                                cellFontSize = "0";
+                            }
                             tcellFontSize = Convert.ToInt32(cellFontSize);
                             if (tcpr.Elements<WordDoc.Text>().FirstOrDefault() != null)
                             {

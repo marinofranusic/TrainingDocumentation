@@ -42,7 +42,20 @@
             this.lblHandbookFileTitle = new System.Windows.Forms.Label();
             this.btnHandbookBrowseOpen = new System.Windows.Forms.Button();
             this.txtHandbookFile = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnBatchHandbookClearList = new System.Windows.Forms.Button();
+            this.btnBatchHandbookRemove = new System.Windows.Forms.Button();
+            this.lstBatchHandbookFiles = new System.Windows.Forms.ListBox();
+            this.btnBatchHandbookAddToList = new System.Windows.Forms.Button();
+            this.chkBatchHandbookInstructorGuide = new System.Windows.Forms.CheckBox();
+            this.btnBatchHandbookConvert = new System.Windows.Forms.Button();
+            this.progressBarBatchHandbook = new System.Windows.Forms.ProgressBar();
+            this.lblBatchHandbookStatus = new System.Windows.Forms.Label();
+            this.lblBatchHandbookTitle = new System.Windows.Forms.Label();
+            this.btnBatchHandbookBrowseOpen = new System.Windows.Forms.Button();
+            this.txtBatchHandbookFile = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chkLPSeparate = new System.Windows.Forms.CheckBox();
             this.rb169 = new System.Windows.Forms.RadioButton();
             this.rb43 = new System.Windows.Forms.RadioButton();
             this.chkLPDeleteXML = new System.Windows.Forms.CheckBox();
@@ -60,25 +73,14 @@
             this.bckgLP = new System.ComponentModel.BackgroundWorker();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.chkBatchHandbookInstructorGuide = new System.Windows.Forms.CheckBox();
-            this.btnBatchHandbookConvert = new System.Windows.Forms.Button();
-            this.progressBarBatchHandbook = new System.Windows.Forms.ProgressBar();
-            this.lblBatchHandbookStatus = new System.Windows.Forms.Label();
-            this.lblBatchHandbookTitle = new System.Windows.Forms.Label();
-            this.btnBatchHandbookBrowseOpen = new System.Windows.Forms.Button();
-            this.txtBatchHandbookFile = new System.Windows.Forms.TextBox();
-            this.btnBatchHandbookAddToList = new System.Windows.Forms.Button();
-            this.lstBatchHandbookFiles = new System.Windows.Forms.ListBox();
-            this.btnBatchHandbookRemove = new System.Windows.Forms.Button();
-            this.btnBatchHandbookClearList = new System.Windows.Forms.Button();
             this.bckgBatch = new System.ComponentModel.BackgroundWorker();
-            this.chkLPSeparate = new System.Windows.Forms.CheckBox();
+            this.chkGoalObjSamePage = new System.Windows.Forms.CheckBox();
+            this.chkBatchHandbookGoalObjSamePage = new System.Windows.Forms.CheckBox();
             this.tabContainer.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabContainer
@@ -94,6 +96,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.chkGoalObjSamePage);
             this.tabPage2.Controls.Add(this.chkHandbookInstructorGuide);
             this.tabPage2.Controls.Add(this.btnHandbookConvert);
             this.tabPage2.Controls.Add(this.chkHandbookOverrideDefaultSave);
@@ -117,7 +120,7 @@
             // 
             this.chkHandbookInstructorGuide.AutoSize = true;
             this.chkHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHandbookInstructorGuide.Location = new System.Drawing.Point(20, 195);
+            this.chkHandbookInstructorGuide.Location = new System.Drawing.Point(20, 177);
             this.chkHandbookInstructorGuide.Name = "chkHandbookInstructorGuide";
             this.chkHandbookInstructorGuide.Size = new System.Drawing.Size(202, 24);
             this.chkHandbookInstructorGuide.TabIndex = 12;
@@ -174,7 +177,7 @@
             this.chkHandbookDeletePictures.Checked = true;
             this.chkHandbookDeletePictures.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkHandbookDeletePictures.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHandbookDeletePictures.Location = new System.Drawing.Point(20, 165);
+            this.chkHandbookDeletePictures.Location = new System.Drawing.Point(20, 147);
             this.chkHandbookDeletePictures.Name = "chkHandbookDeletePictures";
             this.chkHandbookDeletePictures.Size = new System.Drawing.Size(338, 24);
             this.chkHandbookDeletePictures.TabIndex = 7;
@@ -230,6 +233,143 @@
             this.txtHandbookFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtHandbookFile_DragDrop);
             this.txtHandbookFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtHandbookFile_DragEnter);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.chkBatchHandbookGoalObjSamePage);
+            this.tabPage3.Controls.Add(this.btnBatchHandbookClearList);
+            this.tabPage3.Controls.Add(this.btnBatchHandbookRemove);
+            this.tabPage3.Controls.Add(this.lstBatchHandbookFiles);
+            this.tabPage3.Controls.Add(this.btnBatchHandbookAddToList);
+            this.tabPage3.Controls.Add(this.chkBatchHandbookInstructorGuide);
+            this.tabPage3.Controls.Add(this.btnBatchHandbookConvert);
+            this.tabPage3.Controls.Add(this.progressBarBatchHandbook);
+            this.tabPage3.Controls.Add(this.lblBatchHandbookStatus);
+            this.tabPage3.Controls.Add(this.lblBatchHandbookTitle);
+            this.tabPage3.Controls.Add(this.btnBatchHandbookBrowseOpen);
+            this.tabPage3.Controls.Add(this.txtBatchHandbookFile);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(581, 340);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Batch Handbook creator";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnBatchHandbookClearList
+            // 
+            this.btnBatchHandbookClearList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatchHandbookClearList.Location = new System.Drawing.Point(472, 165);
+            this.btnBatchHandbookClearList.Name = "btnBatchHandbookClearList";
+            this.btnBatchHandbookClearList.Size = new System.Drawing.Size(100, 35);
+            this.btnBatchHandbookClearList.TabIndex = 23;
+            this.btnBatchHandbookClearList.Text = "Clear";
+            this.btnBatchHandbookClearList.UseVisualStyleBackColor = true;
+            this.btnBatchHandbookClearList.Click += new System.EventHandler(this.btnBatchHandbookClearList_Click);
+            // 
+            // btnBatchHandbookRemove
+            // 
+            this.btnBatchHandbookRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatchHandbookRemove.Location = new System.Drawing.Point(472, 124);
+            this.btnBatchHandbookRemove.Name = "btnBatchHandbookRemove";
+            this.btnBatchHandbookRemove.Size = new System.Drawing.Size(100, 35);
+            this.btnBatchHandbookRemove.TabIndex = 22;
+            this.btnBatchHandbookRemove.Text = "Remove";
+            this.btnBatchHandbookRemove.UseVisualStyleBackColor = true;
+            this.btnBatchHandbookRemove.Click += new System.EventHandler(this.btnBatchHandbookRemove_Click);
+            // 
+            // lstBatchHandbookFiles
+            // 
+            this.lstBatchHandbookFiles.AllowDrop = true;
+            this.lstBatchHandbookFiles.FormattingEnabled = true;
+            this.lstBatchHandbookFiles.HorizontalScrollbar = true;
+            this.lstBatchHandbookFiles.ItemHeight = 16;
+            this.lstBatchHandbookFiles.Location = new System.Drawing.Point(20, 83);
+            this.lstBatchHandbookFiles.Name = "lstBatchHandbookFiles";
+            this.lstBatchHandbookFiles.Size = new System.Drawing.Size(427, 116);
+            this.lstBatchHandbookFiles.TabIndex = 21;
+            this.lstBatchHandbookFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstBatchHandbookFiles_DragDrop);
+            this.lstBatchHandbookFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstBatchHandbookFiles_DragEnter);
+            // 
+            // btnBatchHandbookAddToList
+            // 
+            this.btnBatchHandbookAddToList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatchHandbookAddToList.Location = new System.Drawing.Point(472, 83);
+            this.btnBatchHandbookAddToList.Name = "btnBatchHandbookAddToList";
+            this.btnBatchHandbookAddToList.Size = new System.Drawing.Size(100, 35);
+            this.btnBatchHandbookAddToList.TabIndex = 20;
+            this.btnBatchHandbookAddToList.Text = "Add to List";
+            this.btnBatchHandbookAddToList.UseVisualStyleBackColor = true;
+            this.btnBatchHandbookAddToList.Click += new System.EventHandler(this.btnBatchHandbookAddToList_Click);
+            // 
+            // chkBatchHandbookInstructorGuide
+            // 
+            this.chkBatchHandbookInstructorGuide.AutoSize = true;
+            this.chkBatchHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBatchHandbookInstructorGuide.Location = new System.Drawing.Point(19, 205);
+            this.chkBatchHandbookInstructorGuide.Name = "chkBatchHandbookInstructorGuide";
+            this.chkBatchHandbookInstructorGuide.Size = new System.Drawing.Size(211, 24);
+            this.chkBatchHandbookInstructorGuide.TabIndex = 19;
+            this.chkBatchHandbookInstructorGuide.Text = "Create Instructor guides";
+            this.chkBatchHandbookInstructorGuide.UseVisualStyleBackColor = true;
+            // 
+            // btnBatchHandbookConvert
+            // 
+            this.btnBatchHandbookConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatchHandbookConvert.Location = new System.Drawing.Point(233, 253);
+            this.btnBatchHandbookConvert.Name = "btnBatchHandbookConvert";
+            this.btnBatchHandbookConvert.Size = new System.Drawing.Size(100, 35);
+            this.btnBatchHandbookConvert.TabIndex = 18;
+            this.btnBatchHandbookConvert.Text = "Convert";
+            this.btnBatchHandbookConvert.UseVisualStyleBackColor = true;
+            this.btnBatchHandbookConvert.Click += new System.EventHandler(this.btnBatchHandbookConvert_Click);
+            // 
+            // progressBarBatchHandbook
+            // 
+            this.progressBarBatchHandbook.Location = new System.Drawing.Point(20, 314);
+            this.progressBarBatchHandbook.Name = "progressBarBatchHandbook";
+            this.progressBarBatchHandbook.Size = new System.Drawing.Size(527, 23);
+            this.progressBarBatchHandbook.TabIndex = 17;
+            // 
+            // lblBatchHandbookStatus
+            // 
+            this.lblBatchHandbookStatus.AutoSize = true;
+            this.lblBatchHandbookStatus.Location = new System.Drawing.Point(257, 294);
+            this.lblBatchHandbookStatus.Name = "lblBatchHandbookStatus";
+            this.lblBatchHandbookStatus.Size = new System.Drawing.Size(53, 17);
+            this.lblBatchHandbookStatus.TabIndex = 16;
+            this.lblBatchHandbookStatus.Text = "Ready.";
+            // 
+            // lblBatchHandbookTitle
+            // 
+            this.lblBatchHandbookTitle.AutoSize = true;
+            this.lblBatchHandbookTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBatchHandbookTitle.Location = new System.Drawing.Point(16, 16);
+            this.lblBatchHandbookTitle.Name = "lblBatchHandbookTitle";
+            this.lblBatchHandbookTitle.Size = new System.Drawing.Size(337, 20);
+            this.lblBatchHandbookTitle.TabIndex = 15;
+            this.lblBatchHandbookTitle.Text = "Presentation to add to batch conversion list:";
+            // 
+            // btnBatchHandbookBrowseOpen
+            // 
+            this.btnBatchHandbookBrowseOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBatchHandbookBrowseOpen.Location = new System.Drawing.Point(472, 42);
+            this.btnBatchHandbookBrowseOpen.Name = "btnBatchHandbookBrowseOpen";
+            this.btnBatchHandbookBrowseOpen.Size = new System.Drawing.Size(100, 35);
+            this.btnBatchHandbookBrowseOpen.TabIndex = 14;
+            this.btnBatchHandbookBrowseOpen.Text = "Browse";
+            this.btnBatchHandbookBrowseOpen.UseVisualStyleBackColor = true;
+            // 
+            // txtBatchHandbookFile
+            // 
+            this.txtBatchHandbookFile.AllowDrop = true;
+            this.txtBatchHandbookFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBatchHandbookFile.Location = new System.Drawing.Point(19, 48);
+            this.txtBatchHandbookFile.Name = "txtBatchHandbookFile";
+            this.txtBatchHandbookFile.Size = new System.Drawing.Size(428, 23);
+            this.txtBatchHandbookFile.TabIndex = 13;
+            this.txtBatchHandbookFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtBatchHandbookFile_DragDrop);
+            this.txtBatchHandbookFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtBatchHandbookFile_DragEnter);
+            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.chkLPSeparate);
@@ -252,6 +392,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Presentation template creator";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chkLPSeparate
+            // 
+            this.chkLPSeparate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkLPSeparate.Location = new System.Drawing.Point(394, 150);
+            this.chkLPSeparate.Name = "chkLPSeparate";
+            this.chkLPSeparate.Size = new System.Drawing.Size(153, 64);
+            this.chkLPSeparate.TabIndex = 25;
+            this.chkLPSeparate.Text = "Separate presentation by subjects";
+            this.chkLPSeparate.UseVisualStyleBackColor = true;
             // 
             // rb169
             // 
@@ -402,7 +552,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 3;
-            this.label1.Text = "v1.2.2";
+            this.label1.Text = "v1.3.1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // pictureBox1
@@ -414,152 +564,33 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // tabPage3
+            // chkGoalObjSamePage
             // 
-            this.tabPage3.Controls.Add(this.btnBatchHandbookClearList);
-            this.tabPage3.Controls.Add(this.btnBatchHandbookRemove);
-            this.tabPage3.Controls.Add(this.lstBatchHandbookFiles);
-            this.tabPage3.Controls.Add(this.btnBatchHandbookAddToList);
-            this.tabPage3.Controls.Add(this.chkBatchHandbookInstructorGuide);
-            this.tabPage3.Controls.Add(this.btnBatchHandbookConvert);
-            this.tabPage3.Controls.Add(this.progressBarBatchHandbook);
-            this.tabPage3.Controls.Add(this.lblBatchHandbookStatus);
-            this.tabPage3.Controls.Add(this.lblBatchHandbookTitle);
-            this.tabPage3.Controls.Add(this.btnBatchHandbookBrowseOpen);
-            this.tabPage3.Controls.Add(this.txtBatchHandbookFile);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(581, 340);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Batch Handbook creator";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.chkGoalObjSamePage.AutoSize = true;
+            this.chkGoalObjSamePage.Checked = true;
+            this.chkGoalObjSamePage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkGoalObjSamePage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkGoalObjSamePage.Location = new System.Drawing.Point(20, 207);
+            this.chkGoalObjSamePage.Name = "chkGoalObjSamePage";
+            this.chkGoalObjSamePage.Size = new System.Drawing.Size(381, 24);
+            this.chkGoalObjSamePage.TabIndex = 13;
+            this.chkGoalObjSamePage.Text = "Lesson goals and objectives on the same page";
+            this.chkGoalObjSamePage.UseVisualStyleBackColor = true;
             // 
-            // chkBatchHandbookInstructorGuide
+            // chkBatchHandbookGoalObjSamePage
             // 
-            this.chkBatchHandbookInstructorGuide.AutoSize = true;
-            this.chkBatchHandbookInstructorGuide.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkBatchHandbookInstructorGuide.Location = new System.Drawing.Point(20, 220);
-            this.chkBatchHandbookInstructorGuide.Name = "chkBatchHandbookInstructorGuide";
-            this.chkBatchHandbookInstructorGuide.Size = new System.Drawing.Size(211, 24);
-            this.chkBatchHandbookInstructorGuide.TabIndex = 19;
-            this.chkBatchHandbookInstructorGuide.Text = "Create Instructor guides";
-            this.chkBatchHandbookInstructorGuide.UseVisualStyleBackColor = true;
-            // 
-            // btnBatchHandbookConvert
-            // 
-            this.btnBatchHandbookConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatchHandbookConvert.Location = new System.Drawing.Point(233, 249);
-            this.btnBatchHandbookConvert.Name = "btnBatchHandbookConvert";
-            this.btnBatchHandbookConvert.Size = new System.Drawing.Size(100, 35);
-            this.btnBatchHandbookConvert.TabIndex = 18;
-            this.btnBatchHandbookConvert.Text = "Convert";
-            this.btnBatchHandbookConvert.UseVisualStyleBackColor = true;
-            this.btnBatchHandbookConvert.Click += new System.EventHandler(this.btnBatchHandbookConvert_Click);
-            // 
-            // progressBarBatchHandbook
-            // 
-            this.progressBarBatchHandbook.Location = new System.Drawing.Point(20, 314);
-            this.progressBarBatchHandbook.Name = "progressBarBatchHandbook";
-            this.progressBarBatchHandbook.Size = new System.Drawing.Size(527, 23);
-            this.progressBarBatchHandbook.TabIndex = 17;
-            // 
-            // lblBatchHandbookStatus
-            // 
-            this.lblBatchHandbookStatus.AutoSize = true;
-            this.lblBatchHandbookStatus.Location = new System.Drawing.Point(257, 294);
-            this.lblBatchHandbookStatus.Name = "lblBatchHandbookStatus";
-            this.lblBatchHandbookStatus.Size = new System.Drawing.Size(53, 17);
-            this.lblBatchHandbookStatus.TabIndex = 16;
-            this.lblBatchHandbookStatus.Text = "Ready.";
-            // 
-            // lblBatchHandbookTitle
-            // 
-            this.lblBatchHandbookTitle.AutoSize = true;
-            this.lblBatchHandbookTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBatchHandbookTitle.Location = new System.Drawing.Point(16, 16);
-            this.lblBatchHandbookTitle.Name = "lblBatchHandbookTitle";
-            this.lblBatchHandbookTitle.Size = new System.Drawing.Size(337, 20);
-            this.lblBatchHandbookTitle.TabIndex = 15;
-            this.lblBatchHandbookTitle.Text = "Presentation to add to batch conversion list:";
-            // 
-            // btnBatchHandbookBrowseOpen
-            // 
-            this.btnBatchHandbookBrowseOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatchHandbookBrowseOpen.Location = new System.Drawing.Point(472, 42);
-            this.btnBatchHandbookBrowseOpen.Name = "btnBatchHandbookBrowseOpen";
-            this.btnBatchHandbookBrowseOpen.Size = new System.Drawing.Size(100, 35);
-            this.btnBatchHandbookBrowseOpen.TabIndex = 14;
-            this.btnBatchHandbookBrowseOpen.Text = "Browse";
-            this.btnBatchHandbookBrowseOpen.UseVisualStyleBackColor = true;
-            // 
-            // txtBatchHandbookFile
-            // 
-            this.txtBatchHandbookFile.AllowDrop = true;
-            this.txtBatchHandbookFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBatchHandbookFile.Location = new System.Drawing.Point(19, 48);
-            this.txtBatchHandbookFile.Name = "txtBatchHandbookFile";
-            this.txtBatchHandbookFile.Size = new System.Drawing.Size(428, 23);
-            this.txtBatchHandbookFile.TabIndex = 13;
-            this.txtBatchHandbookFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtBatchHandbookFile_DragDrop);
-            this.txtBatchHandbookFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtBatchHandbookFile_DragEnter);
-            // 
-            // btnBatchHandbookAddToList
-            // 
-            this.btnBatchHandbookAddToList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatchHandbookAddToList.Location = new System.Drawing.Point(472, 83);
-            this.btnBatchHandbookAddToList.Name = "btnBatchHandbookAddToList";
-            this.btnBatchHandbookAddToList.Size = new System.Drawing.Size(100, 35);
-            this.btnBatchHandbookAddToList.TabIndex = 20;
-            this.btnBatchHandbookAddToList.Text = "Add to List";
-            this.btnBatchHandbookAddToList.UseVisualStyleBackColor = true;
-            this.btnBatchHandbookAddToList.Click += new System.EventHandler(this.btnBatchHandbookAddToList_Click);
-            // 
-            // lstBatchHandbookFiles
-            // 
-            this.lstBatchHandbookFiles.AllowDrop = true;
-            this.lstBatchHandbookFiles.FormattingEnabled = true;
-            this.lstBatchHandbookFiles.HorizontalScrollbar = true;
-            this.lstBatchHandbookFiles.ItemHeight = 16;
-            this.lstBatchHandbookFiles.Location = new System.Drawing.Point(20, 83);
-            this.lstBatchHandbookFiles.Name = "lstBatchHandbookFiles";
-            this.lstBatchHandbookFiles.Size = new System.Drawing.Size(427, 116);
-            this.lstBatchHandbookFiles.TabIndex = 21;
-            this.lstBatchHandbookFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstBatchHandbookFiles_DragDrop);
-            this.lstBatchHandbookFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.lstBatchHandbookFiles_DragEnter);
-            // 
-            // btnBatchHandbookRemove
-            // 
-            this.btnBatchHandbookRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatchHandbookRemove.Location = new System.Drawing.Point(472, 124);
-            this.btnBatchHandbookRemove.Name = "btnBatchHandbookRemove";
-            this.btnBatchHandbookRemove.Size = new System.Drawing.Size(100, 35);
-            this.btnBatchHandbookRemove.TabIndex = 22;
-            this.btnBatchHandbookRemove.Text = "Remove";
-            this.btnBatchHandbookRemove.UseVisualStyleBackColor = true;
-            this.btnBatchHandbookRemove.Click += new System.EventHandler(this.btnBatchHandbookRemove_Click);
-            // 
-            // btnBatchHandbookClearList
-            // 
-            this.btnBatchHandbookClearList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBatchHandbookClearList.Location = new System.Drawing.Point(472, 165);
-            this.btnBatchHandbookClearList.Name = "btnBatchHandbookClearList";
-            this.btnBatchHandbookClearList.Size = new System.Drawing.Size(100, 35);
-            this.btnBatchHandbookClearList.TabIndex = 23;
-            this.btnBatchHandbookClearList.Text = "Clear";
-            this.btnBatchHandbookClearList.UseVisualStyleBackColor = true;
-            this.btnBatchHandbookClearList.Click += new System.EventHandler(this.btnBatchHandbookClearList_Click);
-            // 
-            // chkLPSeparate
-            // 
-            this.chkLPSeparate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkLPSeparate.Location = new System.Drawing.Point(394, 150);
-            this.chkLPSeparate.Name = "chkLPSeparate";
-            this.chkLPSeparate.Size = new System.Drawing.Size(153, 64);
-            this.chkLPSeparate.TabIndex = 25;
-            this.chkLPSeparate.Text = "Separate presentation by subjects";
-            this.chkLPSeparate.UseVisualStyleBackColor = true;
+            this.chkBatchHandbookGoalObjSamePage.AutoSize = true;
+            this.chkBatchHandbookGoalObjSamePage.Checked = true;
+            this.chkBatchHandbookGoalObjSamePage.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBatchHandbookGoalObjSamePage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkBatchHandbookGoalObjSamePage.Location = new System.Drawing.Point(19, 228);
+            this.chkBatchHandbookGoalObjSamePage.Name = "chkBatchHandbookGoalObjSamePage";
+            this.chkBatchHandbookGoalObjSamePage.Size = new System.Drawing.Size(381, 24);
+            this.chkBatchHandbookGoalObjSamePage.TabIndex = 24;
+            this.chkBatchHandbookGoalObjSamePage.Text = "Lesson goals and objectives on the same page";
+            this.chkBatchHandbookGoalObjSamePage.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -579,11 +610,11 @@
             this.tabContainer.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -636,6 +667,8 @@
         private System.Windows.Forms.TextBox txtBatchHandbookFile;
         private System.ComponentModel.BackgroundWorker bckgBatch;
         private System.Windows.Forms.CheckBox chkLPSeparate;
+        private System.Windows.Forms.CheckBox chkGoalObjSamePage;
+        private System.Windows.Forms.CheckBox chkBatchHandbookGoalObjSamePage;
     }
 }
 

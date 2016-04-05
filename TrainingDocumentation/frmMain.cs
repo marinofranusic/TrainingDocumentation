@@ -13,6 +13,7 @@ namespace TrainingDocumentation
 {
     public partial class frmMain : Form
     {
+        int pbClickCounter = 0;
         public frmMain()
         {
             InitializeComponent();
@@ -67,8 +68,9 @@ namespace TrainingDocumentation
                     string docFileName="";
                     docFileName = Path.GetDirectoryName(pptFileName) + "\\" + Path.GetFileNameWithoutExtension(pptFileName) + ".docx";
                     bool instructorGuide = chkHandbookInstructorGuide.Checked;
+                    bool goSamePage = chkBatchHandbookGoalObjSamePage.Checked;
                     AddToLog("Start creating handbook document: " + docFileName);
-                    hbDOC.CreateDocument(pptFileName, bckgBatch, docFileName, instructorGuide);
+                    hbDOC.CreateDocument(pptFileName, bckgBatch, docFileName, instructorGuide, goSamePage);
                     bckgBatch.ReportProgress(100);
                     AddToLog("Handbook conversion finished.");
                     if (chkHandbookDeletePictures.Checked)
@@ -202,8 +204,9 @@ namespace TrainingDocumentation
                 HandbookDoc hbDOC = new HandbookDoc();
                 string docFileName = txtHandbookSaveLocation.Text;
                 bool instructorGuide = chkHandbookInstructorGuide.Checked;
+                bool goSamePage = chkGoalObjSamePage.Checked;
                 AddToLog("Start creating handbook document: " + docFileName);
-                hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName, instructorGuide);
+                hbDOC.CreateDocument(pptFileName, bckgHandbook, docFileName, instructorGuide, goSamePage);
                 bckgHandbook.ReportProgress(100);
                 AddToLog("Handbook conversion finished.");
                 if (chkHandbookDeletePictures.Checked)
@@ -310,7 +313,7 @@ namespace TrainingDocumentation
 
         private void btnLPConvert_Click(object sender, EventArgs e)
         {
-            
+            Console.WriteLine("Start");
             btnLPConvert.Enabled = false;
             bckgLP.RunWorkerAsync();
         }
@@ -519,6 +522,17 @@ namespace TrainingDocumentation
                     }
 
                 }
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            //Easter Egg
+            pbClickCounter++;
+            if (pbClickCounter == 7)
+            {
+                MessageBox.Show("You should really stop clicking on this." + Environment.NewLine + " It isn't doing anything." + Environment.NewLine + " Go back to work!", "Greetings from Marino!");
+                pbClickCounter = 0;
             }
         }
     }

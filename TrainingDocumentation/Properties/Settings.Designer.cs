@@ -533,5 +533,41 @@ namespace TrainingDocumentation.Properties {
                 this["HANDBOOK_MAX_SLIDE_WIDTH"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*hbyes*")]
+        public string FORCE_SLIDE_HANDBOOK_YES {
+            get {
+                return ((string)(this["FORCE_SLIDE_HANDBOOK_YES"]));
+            }
+            set {
+                this["FORCE_SLIDE_HANDBOOK_YES"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("*hbno*")]
+        public string FORCE_SLIDE_HANDBOOK_NO {
+            get {
+                return ((string)(this["FORCE_SLIDE_HANDBOOK_NO"]));
+            }
+            set {
+                this["FORCE_SLIDE_HANDBOOK_NO"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.62")]
+        public double TWO_SLIDES_ON_PAGE_FACTOR {
+            get {
+                return ((double)(this["TWO_SLIDES_ON_PAGE_FACTOR"]));
+            }
+            set {
+                this["TWO_SLIDES_ON_PAGE_FACTOR"] = value;
+            }
+        }
     }
 }

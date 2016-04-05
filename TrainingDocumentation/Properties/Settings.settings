@@ -137,5 +137,14 @@
     <Setting Name="HANDBOOK_MAX_SLIDE_WIDTH" Type="System.Single" Scope="User">
       <Value Profile="(Default)">17.5</Value>
     </Setting>
+    <Setting Name="FORCE_SLIDE_HANDBOOK_YES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*hbyes*</Value>
+    </Setting>
+    <Setting Name="FORCE_SLIDE_HANDBOOK_NO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*hbno*</Value>
+    </Setting>
+    <Setting Name="TWO_SLIDES_ON_PAGE_FACTOR" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.62</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

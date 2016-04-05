@@ -24,10 +24,11 @@ namespace TrainingDocumentation
 {
     class HandbookDoc
     {
-        public void CreateDocument(string pptName, BackgroundWorker bckgWorker, string saveName, bool InstructorGuide)
+        public void CreateDocument(string pptName, BackgroundWorker bckgWorker, string saveName, bool InstructorGuide, bool GoalsObjectivesSamePage)
         {
             PresentationDocument presentationDocument = null;
             WordprocessingDocument wordprocessingDocument = null;
+            int i = 1;
             try
             {
                 string templateFile = Environment.CurrentDirectory + "\\Templates\\StudentHandbookTemplate.docx";
@@ -43,7 +44,7 @@ namespace TrainingDocumentation
 
                 string[] fileEntries = Directory.GetFiles(savePath);
                 HandbookPPT hbp = new HandbookPPT();
-                int i = 1;
+                
                 int counter = 0;
                 foreach (string fileName in fileEntries)
                 {
@@ -53,15 +54,36 @@ namespace TrainingDocumentation
                     int a = fileName.IndexOf("Slide");
                     string tempString = fileName.Substring(0, a) + "Slide" + i.ToString() + ".png";
                     int hbSlideYesNo = GetHBSlideStatus(presentationDocument, i - 1);
+                    string slideLayoutName = GetSlideLayoutName(presentationDocument, i - 1);
                     if (((hbp.SlideVisibile(presentationDocument, i-1) == true && hbSlideYesNo==0) || hbSlideYesNo==1) && (hbSlideYesNo!=2))
                     {
                         //if (i == 2)
                         //    AddSectionBreak(true, wordprocessingDocument);
-                        InsertAPicture(wordprocessingDocument, tempString);
-                        NotesInSlideToWord(presentationDocument, i-1, wordprocessingDocument, InstructorGuide);
+                        bool samePage = false;
+                        bool addNotes = true;
+                        bool twoSlidesOnOnePage = false;
+                        if (GoalsObjectivesSamePage)
+                        {
+                            if (slideLayoutName == Properties.Settings.Default.LESSON_GOAL_SLIDE)
+                            {
+                                samePage = true;
+                                addNotes = false;
+                                twoSlidesOnOnePage = true;
+                            }
+                            if (slideLayoutName == Properties.Settings.Default.LESSON_OBJECTIVES_SLIDE)
+                            {
+                                addNotes = false;
+                                twoSlidesOnOnePage = true;
+                            }
+                        }
+                        InsertAPicture(wordprocessingDocument, tempString, twoSlidesOnOnePage);
+                        if (addNotes)
+                        {
+                            NotesInSlideToWord(presentationDocument, i - 1, wordprocessingDocument, InstructorGuide);
+                        }
                         //if (i == 2)
                         //    AddSectionBreak(false, wordprocessingDocument);
-                        if (i < fileEntries.Length)
+                        if (i < fileEntries.Length && !samePage)
                         {
                             InsertPageBreak(wordprocessingDocument); 
                         }
@@ -74,8 +96,8 @@ namespace TrainingDocumentation
             }
             catch (Exception ex)
             {
-                AddToLog("Problem with creating handbook document. " + ex.Message);
-                MessageBox.Show("Problem with creating handbook document. " + ex.Message);
+                AddToLog("Problem with creating handbook document. " + ex.Message + Environment.NewLine + "Slide: " + i.ToString());
+                MessageBox.Show("Problem with creating handbook document. " + ex.Message + Environment.NewLine + "Slide: " + i.ToString());
             }
             finally
             {
@@ -141,6 +163,48 @@ namespace TrainingDocumentation
             }
         }
 
+        private string GetSlideLayoutName(PresentationDocument presentationDocument, int slideIndex)
+        {
+            if (presentationDocument == null)
+            {
+                throw new ArgumentNullException("presentationDocument");
+            }
+            if (slideIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("slideIndex");
+            }
+            PresentationPart presentationPart = presentationDocument.PresentationPart;
+            if (presentationPart != null && presentationPart.Presentation != null)
+            {
+                P.Presentation presentation = presentationPart.Presentation;
+                if (presentation.SlideIdList != null)
+                {
+                    OpenXmlElementList slideIds = presentation.SlideIdList.ChildElements;
+                    if (slideIndex < slideIds.Count)
+                    {
+                        string slidePartRelationshipId = (slideIds[slideIndex] as P.SlideId).RelationshipId;
+                        SlidePart slidePart = (SlidePart)presentationPart.GetPartById(slidePartRelationshipId);
+                        try
+                        {
+                            if (slidePart != null)
+                            {
+                                SlideLayoutPart slPart = slidePart.SlideLayoutPart;
+                                if(slPart!=null)
+                                {
+                                    return slPart.SlideLayout.CommonSlideData.Name.ToString();
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            return string.Empty;
+                        }
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
 
         private int GetHBSlideStatus(PresentationDocument presentationDocument, int slideIndex)
         {
@@ -170,7 +234,18 @@ namespace TrainingDocumentation
                         P.NotesSlide notesSlide = notesSlidePart1.NotesSlide;
                         P.CommonSlideData csldData = notesSlide.CommonSlideData;
                         P.ShapeTree shpTree = csldData.ShapeTree;
-                        P.Shape shp = shpTree.Elements<P.Shape>().ElementAt(1);
+                        P.Shape shp = null;
+                        
+                        try
+                        {
+                            shp = shpTree.Elements<P.Shape>().ElementAt(1);
+                        }
+                        catch { }
+                        if(shp==null)
+                        {
+                            AlternateContent ac= shpTree.Elements<AlternateContent>().ElementAt(0);
+                            shp = ac.Elements<AlternateContentFallback>().ElementAt(0).Elements<P.Shape>().ElementAt(0);
+                        }
                         P.TextBody tb = shp.Elements<P.TextBody>().ElementAt(0);
                         Drawing.Paragraph para = tb.Elements<Drawing.Paragraph>().ElementAt(0);
                         string tempStr = "";
@@ -220,7 +295,17 @@ namespace TrainingDocumentation
                         P.NotesSlide notesSlide = notesSlidePart1.NotesSlide;
                         P.CommonSlideData csldData = notesSlide.CommonSlideData;
                         P.ShapeTree shpTree = csldData.ShapeTree;
-                        P.Shape shp = shpTree.Elements<P.Shape>().ElementAt(1);
+                        P.Shape shp = null;
+                        try
+                        {
+                            shp = shpTree.Elements<P.Shape>().ElementAt(1);
+                        }
+                        catch { }
+                        if (shp == null)
+                        {
+                            AlternateContent ac = shpTree.Elements<AlternateContent>().ElementAt(0);
+                            shp = ac.Elements<AlternateContentFallback>().ElementAt(0).Elements<P.Shape>().ElementAt(0);
+                        }
                         P.TextBody tb = shp.Elements<P.TextBody>().ElementAt(0);
                         string collectedText = "";
                         int numberingID = -1;
@@ -478,7 +563,7 @@ namespace TrainingDocumentation
 
                                 if (!collectText && collectedText.Length > 0)
                                 {
-                                    AddTextToWord(wordprocessingDocument, collectedText, b, i, u, heading);
+                                    AddTextToWord(wordprocessingDocument, collectedText, b, i, u, heading, slideIndex);
                                     heading = 0;
                                     collectedText = "";
                                 }
@@ -491,7 +576,7 @@ namespace TrainingDocumentation
                             }
                             if (!collectText && collectedText.Length > 0 && collectedText.IndexOf("*") == -1)
                             {
-                                AddTextToWord(wordprocessingDocument, collectedText, b, i, u, heading);
+                                AddTextToWord(wordprocessingDocument, collectedText, b, i, u, heading, slideIndex);
                                 heading = 0;
                                 collectedText = "";
                             }
@@ -499,7 +584,7 @@ namespace TrainingDocumentation
                         if (collectedText.Length > 0)
                         {
                             AddParagraphToWord(wordprocessingDocument);
-                            AddTextToWord(wordprocessingDocument, collectedText, false, false, false, 0);
+                            AddTextToWord(wordprocessingDocument, collectedText, false, false, false, 0, slideIndex);
 
                             collectedText = "";
                         }
@@ -573,7 +658,7 @@ namespace TrainingDocumentation
 
         
 
-        public void AddTextToWord(WordprocessingDocument doc, string text, bool bold, bool italic, bool underline, int heading)
+        public void AddTextToWord(WordprocessingDocument doc, string text, bool bold, bool italic, bool underline, int heading, int slideNumber)
         {
             MainDocumentPart mainPart = doc.MainDocumentPart;
             WordDoc.Body body = mainPart.Document.Body;
@@ -589,6 +674,10 @@ namespace TrainingDocumentation
                 bold = false;
                 italic = false;
                 underline = false;
+                WordDoc.BookmarkStart bs = new WordDoc.BookmarkStart();
+                bs.Id = slideNumber.ToString();
+                bs.Name = text;
+                bs = para.AppendChild(bs);
             }
             else
             {
@@ -638,6 +727,9 @@ namespace TrainingDocumentation
                     run.AppendChild(new WordDoc.Break());
 
             }
+            WordDoc.BookmarkEnd be = new WordDoc.BookmarkEnd();
+            be.Id = slideNumber.ToString();
+            be = para.AppendChild(be);
         }
         
         private string GetHeading1(string inputString)
@@ -756,7 +848,7 @@ namespace TrainingDocumentation
         }
 
 
-        private void InsertAPicture(WordprocessingDocument wordprocessingDocument, string fileName)
+        private void InsertAPicture(WordprocessingDocument wordprocessingDocument, string fileName, bool twoPicturesPerSlide)
         {
             
             MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
@@ -766,8 +858,13 @@ namespace TrainingDocumentation
                 imagePart.FeedData(stream);
             }
             Bitmap img = new Bitmap(fileName);
-            int widthPx = img.Width;
-            int heightPx = img.Height;
+            double factor = 1;
+            if(twoPicturesPerSlide)
+            {
+                factor = Properties.Settings.Default.TWO_SLIDES_ON_PAGE_FACTOR;
+            }
+            int widthPx = Convert.ToInt32(img.Width * factor);
+            int heightPx = Convert.ToInt32(img.Height * factor);
             float horzRezDpi = img.HorizontalResolution;
             float vertRezDpi = img.VerticalResolution;
             const int emusPerInch = 914400;

@@ -194,9 +194,10 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            NotesSlide notesSlide = CreateDeafultNotesPart(Properties.Settings.Default.FORCE_SLIDE_HANDBOOK_NO + Environment.NewLine);
 
-            string notesText = Properties.Settings.Default.HEADING2_MARKUP +
+            string notesText = 
+                Properties.Settings.Default.HEADING2_MARKUP +
                 Properties.Settings.Default.QUESTIONS_SLIDE_TITLE +
                 Properties.Settings.Default.HEADING2_MARKUP +
                 Environment.NewLine + Environment.NewLine;
@@ -375,7 +376,7 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            NotesSlide notesSlide = CreateDeafultNotesPart(string.Empty);
 
             string SlideNotesText = "";
             SlideNotesText = Properties.Settings.Default.HEADING2_MARKUP
@@ -523,7 +524,7 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            NotesSlide notesSlide = CreateDeafultNotesPart(string.Empty);
 
             string SlideNotesText = "";
             SlideNotesText = Properties.Settings.Default.HEADING1_MARKUP +
@@ -708,7 +709,8 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            string defaultNotes = beginningOfSubject ? string.Empty : (Properties.Settings.Default.FORCE_SLIDE_HANDBOOK_NO + Environment.NewLine);
+            NotesSlide notesSlide = CreateDeafultNotesPart(defaultNotes);
 
             string SlideNotesText = "";
             SlideNotesText = Properties.Settings.Default.HEADING2_MARKUP+
@@ -871,7 +873,8 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            string defaultNotes = beginningOfSubject ? string.Empty : (Properties.Settings.Default.FORCE_SLIDE_HANDBOOK_NO + Environment.NewLine);
+            NotesSlide notesSlide = CreateDeafultNotesPart(defaultNotes);
 
             string SlideNotesText = "";
             SlideNotesText = Properties.Settings.Default.HEADING2_MARKUP +
@@ -996,7 +999,7 @@ namespace TrainingDocumentation
 
            
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            NotesSlide notesSlide = CreateDeafultNotesPart(Properties.Settings.Default.FORCE_SLIDE_HANDBOOK_NO + Environment.NewLine);
 
             string notesText = Properties.Settings.Default.HEADING1_MARKUP +
                 Properties.Settings.Default.INTRODUCTION_SUBJECT_TITLE +
@@ -1185,7 +1188,7 @@ namespace TrainingDocumentation
             }
 
             NotesSlidePart notesSlidePart = slidePart.AddNewPart<NotesSlidePart>();
-            NotesSlide notesSlide = CreateDeafultNotesPart();
+            NotesSlide notesSlide = CreateDeafultNotesPart(string.Empty);
 
 
             string SlideNotesText = "";
@@ -1260,9 +1263,11 @@ namespace TrainingDocumentation
             return thisSlideNumber;
         }
 
-        private NotesSlide CreateDeafultNotesPart()
+        private NotesSlide CreateDeafultNotesPart(string force)
         {
-            string defaultNotesText = Properties.Settings.Default.DEFAULT_NOTES_TEXT + Environment.NewLine;
+            string defaultNotesText = force +
+                Properties.Settings.Default.DEFAULT_NOTES_TEXT +
+                Environment.NewLine;
             NotesSlide notesSlide = new NotesSlide(
                         new CommonSlideData(new ShapeTree(
                           new NonVisualGroupShapeProperties(
